@@ -40,52 +40,52 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bootstrap repository
-        if: ${{ hashFiles('SourceCode/Tests/**') == '' }}
-        run: echo "SourceCode/Tests is not present yet; CI is installed and waiting for the source migration."
+        if: ${{ hashFiles('Codespace/Tests/**') == '' }}
+        run: echo "Codespace/Tests is not present yet; CI is installed and waiting for the source migration."
 
       - name: Core
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Core clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Core clean run CC=${{ matrix.cc }}
 
       - name: Bit
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Bit clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Bit clean run CC=${{ matrix.cc }}
 
       - name: Chronometry
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Chronometry clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Chronometry clean run CC=${{ matrix.cc }}
 
       - name: Container
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Container clean strict multi-tu CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Container clean strict multi-tu CC=${{ matrix.cc }}
 
       - name: Math
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Math clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Math clean run CC=${{ matrix.cc }}
 
       - name: Random
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Random clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Random clean run CC=${{ matrix.cc }}
 
       - name: Struct
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Struct clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Struct clean run CC=${{ matrix.cc }}
 
       - name: Text
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Text clean run CC=${{ matrix.cc }} BUILD=build-${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Text clean run CC=${{ matrix.cc }} BUILD=build-${{ matrix.cc }}
 
       - name: Type
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Type clean run CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Type clean run CC=${{ matrix.cc }}
 
       - name: Concurrency
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Concurrency clean run CC=${{ matrix.cc }} BUILD=build-${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Concurrency clean run CC=${{ matrix.cc }} BUILD=build-${{ matrix.cc }}
 
       - name: Network
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
-        run: make -C SourceCode/Tests/Network clean strict CC=${{ matrix.cc }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
+        run: make -C Codespace/Tests/Network clean strict CC=${{ matrix.cc }}
 
   mingw:
     name: Windows / MinGW
@@ -97,70 +97,70 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bootstrap repository
-        if: ${{ hashFiles('SourceCode/Tests/**') == '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') == '' }}
         shell: bash
-        run: echo "SourceCode/Tests is not present yet; CI is installed and waiting for the source migration."
+        run: echo "Codespace/Tests is not present yet; CI is installed and waiting for the source migration."
 
       - name: Core
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
         run: |
-          make -C SourceCode/Tests/Core clean build CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
-          for t in SourceCode/Tests/Core/.build/*.exe; do "$t"; done
+          make -C Codespace/Tests/Core clean build CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+          for t in Codespace/Tests/Core/.build/*.exe; do "$t"; done
 
       - name: Bit
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Bit clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Bit clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Chronometry
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Chronometry clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Chronometry clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Container
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Container clean strict multi-tu CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Container clean strict multi-tu CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Math
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Math clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Math clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Random
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Random clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror" LDLIBS="-lbcrypt"
+        run: make -C Codespace/Tests/Random clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror" LDLIBS="-lbcrypt"
 
       - name: Struct
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Struct clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Struct clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Text
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Text clean run CC=gcc BUILD=build-windows CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Text clean run CC=gcc BUILD=build-windows CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Type
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C SourceCode/Tests/Type clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
+        run: make -C Codespace/Tests/Type clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Concurrency
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
         run: |
-          make -C SourceCode/Tests/Concurrency clean windows WINDOWS_CC=gcc
-          for t in SourceCode/Tests/Concurrency/build-windows/*.exe; do "$t"; done
+          make -C Codespace/Tests/Concurrency clean windows WINDOWS_CC=gcc
+          for t in Codespace/Tests/Concurrency/build-windows/*.exe; do "$t"; done
 
       - name: Network
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
         run: |
-          make -C SourceCode/Tests/Network clean windows WINDOWS_CC=gcc
-          for t in SourceCode/Tests/Network/build-windows/*.exe; do "$t"; done
+          make -C Codespace/Tests/Network clean windows WINDOWS_CC=gcc
+          for t in Codespace/Tests/Network/build-windows/*.exe; do "$t"; done
 
   msvc:
     name: Windows / MSVC
@@ -172,15 +172,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bootstrap repository
-        if: ${{ hashFiles('SourceCode/Tests/**') == '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') == '' }}
         shell: pwsh
-        run: Write-Host "SourceCode/Tests is not present yet; CI is installed and waiting for the source migration."
+        run: Write-Host "Codespace/Tests is not present yet; CI is installed and waiting for the source migration."
 
       - name: Set up MSVC
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Compile and run all suites
-        if: ${{ hashFiles('SourceCode/Tests/**') != '' }}
+        if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: pwsh
         run: .github/scripts/test-msvc.ps1
