@@ -1,6 +1,6 @@
 # Why EUPL 1.2?
 
-[Português (Brasil)](Translations/Portugues-Brasil/LICENSING(PT-BR).md)
+[Português (Brasil)](Translations/Portugues-Brasil/LICENSING(PT-BR).md) · [Español (Latinoamérica)](Translations/Espanol-LATAM/LICENSING(ES-LATAM).md)
 
 Congro;Library is licensed under the **European Union Public Licence, Version 1.2 only (EUPL-1.2)**.
 
