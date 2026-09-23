@@ -1,5 +1,5 @@
 # Congro;Library
-[Changelog](../../Version.md)&nbsp;|&nbsp;[Por que EUPL?](LICENSING(PT-BR).md)&nbsp;|&nbsp;[Código de Conduta](CODE_OF_CONDUCT(PT-BR).md)&nbsp;|&nbsp;[Créditos](AUTHORS(PT-BR).md)&nbsp;|&nbsp;[English](../../README.md)
+[Changelog](../../Version.md)&nbsp;|&nbsp;[Por que EUPL?](LICENSING(PT-BR).md)&nbsp;|&nbsp;[Código de Conduta](CODE_OF_CONDUCT(PT-BR).md)&nbsp;|&nbsp;[Créditos](AUTHORS(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](../Espanol-LATAM/README(ES-LATAM).md)&nbsp;|&nbsp;[English](../../README.md)
 <pre>
 
 Uma biblioteca para mentes curiosas que exploram além do caminho esperado.
