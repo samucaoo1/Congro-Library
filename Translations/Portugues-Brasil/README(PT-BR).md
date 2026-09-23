@@ -1,5 +1,5 @@
 # Congro;Library
-[Changelog](../../Version.md)&nbsp;|&nbsp;[English](../../README.md)
+[Changelog](../../Version.md)&nbsp;|&nbsp;[Por que EUPL?](LICENSING(PT-BR).md)&nbsp;|&nbsp;[English](../../README.md)
 <pre>
 
 Uma biblioteca para mentes curiosas que exploram além do caminho esperado.
@@ -159,6 +159,8 @@ Contribuições, experimentos, melhorias e críticas construtivas são bem-vindo
 
 > Licença
 Congro;Library é licenciada sob a Licença Pública da União Europeia, versão 1.2 somente (EUPL-1.2).
+
+Veja [Por que EUPL?](LICENSING(PT-BR).md) para a justificativa de licenciamento do projeto.
 
 > Mensagem final
 $ congro --message

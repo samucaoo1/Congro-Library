@@ -1,5 +1,5 @@
 # Congro;Library 
-[Changelog](Version.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)  
+[Changelog](Version.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)  
 <pre>
 
 A library for curious minds exploring beyond the expected path.
@@ -158,6 +158,8 @@ Contributions, experiments, improvements, and constructive criticism are welcome
 
 > License
 Congro;Library is licensed under the European Union Public Licence, Version 1.2 only (EUPL-1.2).
+
+See [Why EUPL?](LICENSING.md) for the project's licensing rationale.
 
 > Final Message
 $ congro --message
