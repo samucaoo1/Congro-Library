@@ -1,6 +1,6 @@
 # Code of Conduct
 
-[Português (Brasil)](Translations/Portugues-Brasil/CODE_OF_CONDUCT(PT-BR).md)
+[Português (Brasil)](Translations/Portugues-Brasil/CODE_OF_CONDUCT(PT-BR).md) · [Español (Latinoamérica)](Translations/Espanol-LATAM/CODE_OF_CONDUCT(ES-LATAM).md)
 
 Congro;Library is built around curiosity, learning, readability, and collaboration. Participation in the project should reflect those same values.
 
