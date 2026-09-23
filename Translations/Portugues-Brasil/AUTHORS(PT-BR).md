@@ -1,6 +1,6 @@
 # Autores e Contribuidores
 
-[English](../../AUTHORS.md)
+[Español (Latinoamérica)](../Espanol-LATAM/AUTHORS(ES-LATAM).md) · [English](../../AUTHORS.md)
 
 ## Criador e mantenedor principal
 
