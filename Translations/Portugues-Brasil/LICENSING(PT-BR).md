@@ -1,6 +1,6 @@
 # Por que EUPL 1.2?
 
-[English](../../LICENSING.md)
+[Español (Latinoamérica)](../Espanol-LATAM/LICENSING(ES-LATAM).md) · [English](../../LICENSING.md)
 
 Congro;Library é licenciada sob a **Licença Pública da União Europeia, Versão 1.2 somente (EUPL-1.2)**.
 
