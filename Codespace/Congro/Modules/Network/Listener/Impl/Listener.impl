@@ -53,7 +53,7 @@ static inline void NETWORK_LISTENER_FUNC(_RefreshLocalEndpoint)(
     TNetwork_Listener *listener, TSocket *socket) {
   struct sockaddr_storage native;
   SOCKET_TYPE(Len) length = (SOCKET_TYPE(Len))sizeof(native);
-  if (getsockname(socket->handle, (struct sockaddr *)&native, &length) == 0)
+  if (TSOCKET_NATIVE_GETSOCKNAME(socket->handle, (struct sockaddr *)&native, &length) == 0)
     SOCKET_FUNC(_EndpointFromNative)((struct sockaddr *)&native,
                                      &listener->localEndpoint);
 }
@@ -104,7 +104,7 @@ inline static OPSTATUS NETWORK_LISTENER_FUNC(Listen)(
     NETWORK_LISTENER_FUNC(_RefreshLocalEndpoint)(listener, &listener->primary);
     boundPort = listener->localEndpoint.port;
 
-    if (getsockopt(listener->primary.handle, IPPROTO_IPV6, IPV6_V6ONLY,
+    if (TSOCKET_NATIVE_GETSOCKOPT(listener->primary.handle, IPPROTO_IPV6, IPV6_V6ONLY,
                    (char *)&ipv6Only, &length) == 0 && ipv6Only == 0) {
       listener->dualStack = true;
       return NETWORK_LISTENER_FUNC(_Publish)(
@@ -146,9 +146,9 @@ static inline TSocket *NETWORK_LISTENER_FUNC(_AcceptSocket)(
   FD_ZERO(&set);
   FD_SET(listener->primary.handle, &set);
   FD_SET(listener->secondary.handle, &set);
-  if (select(0, &set, NULL, NULL, NULL) <= 0)
+  if (TSOCKET_NATIVE_SELECT(0, &set, NULL, NULL, NULL) <= 0)
     return NULL;
-  return FD_ISSET(listener->primary.handle, &set) ? &listener->primary
+  return SOCKET_FUNC(_DescriptorSetContains)(listener->primary.handle, &set) ? &listener->primary
                                                   : &listener->secondary;
 #else
   struct pollfd descriptors[2];

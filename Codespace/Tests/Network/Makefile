@@ -3,7 +3,6 @@ CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -Werror -D_POSIX_C_SOURCE=200809L
 BUILD := build
 WINDOWS_CC ?= x86_64-w64-mingw32-gcc
 WINDOWS_CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -Werror
-WINDOWS_LDLIBS := -lws2_32
 WINDOWS_BUILD := build-windows
 WINDOWS_TESTS := include-all smoke tcp udp poller resolve nonblocking poller-close udp-clear-peer ipv6 multi-tu lifecycle socket-recreate poller-empty connection-nonblocking poller-descriptor-limit poller-timeout connection-arguments datagram-arguments surface include-order
 
@@ -132,7 +131,7 @@ $(WINDOWS_BUILD):
 	mkdir -p $(WINDOWS_BUILD)
 
 $(WINDOWS_BUILD)/multi-tu.exe: MultiTU_Main.c MultiTU_A.c MultiTU_B.c | $(WINDOWS_BUILD)
-	$(WINDOWS_CC) $(WINDOWS_CFLAGS) MultiTU_Main.c MultiTU_A.c MultiTU_B.c -o $@ $(WINDOWS_LDLIBS)
+	$(WINDOWS_CC) $(WINDOWS_CFLAGS) MultiTU_Main.c MultiTU_A.c MultiTU_B.c -o $@
 
 define WINDOWS_TEST_RULE
 $(WINDOWS_BUILD)/$(1).exe: $(2) | $(WINDOWS_BUILD)

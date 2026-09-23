@@ -17,12 +17,12 @@ SOCKET_SEND_PROTOTYPE {
   }
   amount = SOCKET_FUNC(_NativeIOSize)(size);
 #if OS_WINDOWS
-  int result = send(socket->handle, (const char *)data, (int)amount, 0);
+  int result = TSOCKET_NATIVE_SEND(socket->handle, (const char *)data, (int)amount, 0);
 #else
 #ifdef MSG_NOSIGNAL
-  ssize_t result = send(socket->handle, data, amount, MSG_NOSIGNAL);
+  ssize_t result = TSOCKET_NATIVE_SEND(socket->handle, data, amount, MSG_NOSIGNAL);
 #else
-  ssize_t result = send(socket->handle, data, amount, 0);
+  ssize_t result = TSOCKET_NATIVE_SEND(socket->handle, data, amount, 0);
 #endif
 #endif
   if (result == TSOCKET_NATIVE_ERROR) {
@@ -44,9 +44,9 @@ SOCKET_RECEIVE_PROTOTYPE {
   }
   amount = SOCKET_FUNC(_NativeIOSize)(capacity);
 #if OS_WINDOWS
-  int result = recv(socket->handle, (char *)data, (int)amount, 0);
+  int result = TSOCKET_NATIVE_RECV(socket->handle, (char *)data, (int)amount, 0);
 #else
-  ssize_t result = recv(socket->handle, data, amount, 0);
+  ssize_t result = TSOCKET_NATIVE_RECV(socket->handle, data, amount, 0);
 #endif
   if (result == TSOCKET_NATIVE_ERROR) {
     domainError = SOCKET_FUNC(_MapNativeError)(TSOCKET_NATIVE_ERROR_CODE());
@@ -79,10 +79,10 @@ SOCKET_SEND_TO_PROTOTYPE {
 
   amount = SOCKET_FUNC(_NativeIOSize)(size);
 #if OS_WINDOWS
-  int result = sendto(socket->handle, (const char *)data, (int)amount, 0,
+  int result = TSOCKET_NATIVE_SENDTO(socket->handle, (const char *)data, (int)amount, 0,
                       (struct sockaddr *)&native, length);
 #else
-  ssize_t result = sendto(socket->handle, data, amount, 0,
+  ssize_t result = TSOCKET_NATIVE_SENDTO(socket->handle, data, amount, 0,
                           (struct sockaddr *)&native, length);
 #endif
   if (result == TSOCKET_NATIVE_ERROR) {
@@ -106,10 +106,10 @@ SOCKET_RECEIVE_FROM_PROTOTYPE {
   }
   amount = SOCKET_FUNC(_NativeIOSize)(capacity);
 #if OS_WINDOWS
-  int result = recvfrom(socket->handle, (char *)data, (int)amount, 0,
+  int result = TSOCKET_NATIVE_RECVFROM(socket->handle, (char *)data, (int)amount, 0,
                         (struct sockaddr *)&native, &length);
 #else
-  ssize_t result = recvfrom(socket->handle, data, amount, 0,
+  ssize_t result = TSOCKET_NATIVE_RECVFROM(socket->handle, data, amount, 0,
                             (struct sockaddr *)&native, &length);
 #endif
   if (result == TSOCKET_NATIVE_ERROR) {

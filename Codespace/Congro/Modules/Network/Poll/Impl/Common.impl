@@ -118,11 +118,11 @@ static inline bool NETWORK_POLLER_FUNC(_StreamClosed)(
     SOCKET_TYPE(Handle) handle) {
   char byte;
 #if OS_WINDOWS
-  int result = recv(handle, &byte, 1, MSG_PEEK);
+  int result = TSOCKET_NATIVE_RECV(handle, &byte, 1, MSG_PEEK);
 #elif OS_MAC
-  ssize_t result = recv(handle, &byte, 1, MSG_PEEK);
+  ssize_t result = TSOCKET_NATIVE_RECV(handle, &byte, 1, MSG_PEEK);
 #else
-  ssize_t result = recv(handle, &byte, 1, MSG_PEEK | MSG_DONTWAIT);
+  ssize_t result = TSOCKET_NATIVE_RECV(handle, &byte, 1, MSG_PEEK | MSG_DONTWAIT);
 #endif
   if (result == 0) return true;
   if (result == TSOCKET_NATIVE_ERROR) {

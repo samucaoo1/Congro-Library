@@ -74,7 +74,7 @@ static inline bool NETWORK_CONNECTION_FUNC(_WaitConnect)(
   tv.tv_sec = (long)(timeout.nanoseconds / CHRONOMETRY_NANOSECONDS_PER_SECOND);
   tv.tv_usec = (long)((timeout.nanoseconds % CHRONOMETRY_NANOSECONDS_PER_SECOND) /
                       CHRONOMETRY_NANOSECONDS_PER_MICROSECOND);
-  result = select(0, NULL, &writeSet, &errorSet, &tv);
+  result = TSOCKET_NATIVE_SELECT(0, NULL, &writeSet, &errorSet, &tv);
 #else
   struct pollfd descriptor;
   int64_t milliseconds =
@@ -97,7 +97,7 @@ static inline bool NETWORK_CONNECTION_FUNC(_WaitConnect)(
         SOCKET_FUNC(_MapNativeError)(TSOCKET_NATIVE_ERROR_CODE());
     return false;
   }
-  if (getsockopt(connection->socket.handle, SOL_SOCKET, SO_ERROR,
+  if (TSOCKET_NATIVE_GETSOCKOPT(connection->socket.handle, SOL_SOCKET, SO_ERROR,
                  (char *)&socketError, &errorLength) == TSOCKET_NATIVE_ERROR) {
     connection->lastError =
         SOCKET_FUNC(_MapNativeError)(TSOCKET_NATIVE_ERROR_CODE());
@@ -131,7 +131,7 @@ static inline bool NETWORK_CONNECTION_FUNC(_ConnectEndpoint)(
     return false;
   }
 
-  result = connect(connection->socket.handle, (struct sockaddr *)&native, length);
+  result = TSOCKET_NATIVE_CONNECT(connection->socket.handle, (struct sockaddr *)&native, length);
   if (result == TSOCKET_NATIVE_ERROR) {
     int error = TSOCKET_NATIVE_ERROR_CODE();
 #if OS_WINDOWS
@@ -168,11 +168,11 @@ static inline void NETWORK_CONNECTION_FUNC(_RefreshEndpoints)(
     TNetwork_Connection *connection) {
   struct sockaddr_storage native;
   SOCKET_TYPE(Len) length = (SOCKET_TYPE(Len))sizeof(native);
-  if (getsockname(connection->socket.handle, (struct sockaddr *)&native, &length) == 0)
+  if (TSOCKET_NATIVE_GETSOCKNAME(connection->socket.handle, (struct sockaddr *)&native, &length) == 0)
     SOCKET_FUNC(_EndpointFromNative)((struct sockaddr *)&native,
                                      &connection->localEndpoint);
   length = (SOCKET_TYPE(Len))sizeof(native);
-  if (getpeername(connection->socket.handle, (struct sockaddr *)&native, &length) == 0)
+  if (TSOCKET_NATIVE_GETPEERNAME(connection->socket.handle, (struct sockaddr *)&native, &length) == 0)
     SOCKET_FUNC(_EndpointFromNative)((struct sockaddr *)&native,
                                      &connection->remoteEndpoint);
 }

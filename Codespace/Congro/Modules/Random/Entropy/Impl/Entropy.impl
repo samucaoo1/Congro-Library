@@ -1,8 +1,19 @@
 inline static bool RANDOM_ENTROPY_FUNC(System)(void *destination, size_t size) {
   if (destination == NULL && size != 0U) return false;
 #if OS_WINDOWS
-  return BCryptGenRandom(NULL, (PUCHAR)destination, (ULONG)size,
-                         BCRYPT_USE_SYSTEM_PREFERRED_RNG) == 0;
+  TRandom_BCryptGenRandom generator = RANDOM_ENTROPY_FUNC(_BCryptGenRandom)();
+  unsigned char *output = (unsigned char *)destination;
+  if (generator == NULL)
+    return false;
+  while (size != 0U) {
+    ULONG amount = size > (size_t)ULONG_MAX ? ULONG_MAX : (ULONG)size;
+    if (generator(NULL, (PUCHAR)output, amount,
+                  BCRYPT_USE_SYSTEM_PREFERRED_RNG) != 0)
+      return false;
+    output += (size_t)amount;
+    size -= (size_t)amount;
+  }
+  return true;
 #elif OS_LINUX
   unsigned char *output = destination;
   while (size != 0U) {

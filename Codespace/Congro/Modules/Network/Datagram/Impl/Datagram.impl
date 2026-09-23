@@ -21,7 +21,7 @@ static inline void NETWORK_DATAGRAM_FUNC(_RefreshLocalEndpoint)(
     TNetwork_Datagram *datagram) {
   struct sockaddr_storage native;
   SOCKET_TYPE(Len) length = (SOCKET_TYPE(Len))sizeof(native);
-  if (getsockname(datagram->socket.handle, (struct sockaddr *)&native, &length) == 0)
+  if (TSOCKET_NATIVE_GETSOCKNAME(datagram->socket.handle, (struct sockaddr *)&native, &length) == 0)
     SOCKET_FUNC(_EndpointFromNative)((struct sockaddr *)&native,
                                      &datagram->localEndpoint);
 }
@@ -230,7 +230,7 @@ inline static OPSTATUS NETWORK_DATAGRAM_FUNC(ClearPeer)(
   if (datagram->socket.handle != TSOCKET_NATIVE_INVALID && datagram->hasPeer) {
     memset(&native, 0, sizeof(native));
     ((struct sockaddr *)&native)->sa_family = AF_UNSPEC;
-    if (connect(datagram->socket.handle, (struct sockaddr *)&native,
+    if (TSOCKET_NATIVE_CONNECT(datagram->socket.handle, (struct sockaddr *)&native,
                 (SOCKET_TYPE(Len))sizeof(struct sockaddr)) ==
         TSOCKET_NATIVE_ERROR) {
 #if OS_WINDOWS

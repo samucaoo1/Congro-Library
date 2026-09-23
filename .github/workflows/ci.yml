@@ -131,7 +131,7 @@ jobs:
       - name: Random
         if: ${{ hashFiles('Codespace/Tests/**') != '' }}
         shell: bash
-        run: make -C Codespace/Tests/Random clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror" LDLIBS="-lbcrypt"
+        run: make -C Codespace/Tests/Random clean run CC=gcc CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror"
 
       - name: Struct
         if: ${{ hashFiles('Codespace/Tests/**') != '' }}

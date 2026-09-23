@@ -162,14 +162,14 @@ static inline OPSTATUS NETWORK_POLLER_FUNC(_WaitNative)(
         STATUS_NS(OUT_OF_RANGE));
   }
 
-  result = WSAPoll(descriptors, (ULONG)count, timeoutMs);
+  result = TSOCKET_NATIVE_POLL(descriptors, (ULONG)count, timeoutMs);
   if (result == SOCKET_ERROR) {
     Memory_Free(descriptors);
     Memory_Free(registrationIndices);
     Memory_Free(detectClose);
     Memory_Free(flags);
     return NETWORK_POLLER_FUNC(_Publish)(
-        poller, error, SOCKET_FUNC(_MapNativeError)(WSAGetLastError()),
+        poller, error, SOCKET_FUNC(_MapNativeError)(TSOCKET_NATIVE_ERROR_CODE()),
         STATUS_NS(GENERIC_ERROR));
   }
 

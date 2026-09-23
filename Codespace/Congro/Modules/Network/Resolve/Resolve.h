@@ -41,6 +41,23 @@ static inline TNetwork_Error NETWORK_RESOLVE_FUNC(_MapError)(int error) {
   return NETWORK_ERROR_CONST(UNKNOWN);
 }
 
+static inline int NETWORK_RESOLVE_FUNC(_GetAddrInfo)(
+    const char *host, const struct addrinfo *hints, struct addrinfo **result) {
+#if OS_WINDOWS
+  return NETWORK_FUNC(_WinGetAddrInfo)(host, NULL, hints, result);
+#else
+  return getaddrinfo(host, NULL, hints, result);
+#endif
+}
+
+static inline void NETWORK_RESOLVE_FUNC(_FreeAddrInfo)(struct addrinfo *result) {
+#if OS_WINDOWS
+  NETWORK_FUNC(_WinFreeAddrInfo)(result);
+#else
+  freeaddrinfo(result);
+#endif
+}
+
 static inline OPSTATUS NETWORK_RESOLVE_FUNC(Address)(
     TNetwork_Address_Vector *addresses, const char *host,
     TNetwork_Error *error) {
@@ -67,7 +84,7 @@ static inline OPSTATUS NETWORK_RESOLVE_FUNC(Address)(
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = 0;
 
-  status = getaddrinfo(host, NULL, &hints, &result);
+  status = NETWORK_RESOLVE_FUNC(_GetAddrInfo)(host, &hints, &result);
   if (status != 0) {
     if (error != NULL)
       *error = NETWORK_RESOLVE_FUNC(_MapError)(status);
@@ -104,7 +121,7 @@ static inline OPSTATUS NETWORK_RESOLVE_FUNC(Address)(
       if (!duplicate &&
           FLAT_VECTOR_FUNC(Network_Address, PushBack)(addresses, address) !=
               STATUS_NS(SUCCESS)) {
-        freeaddrinfo(result);
+        NETWORK_RESOLVE_FUNC(_FreeAddrInfo)(result);
         if (error != NULL)
           *error = NETWORK_ERROR_CONST(RESOURCE_EXHAUSTED);
         return STATUS_CONST(GENERIC_ERROR);
@@ -112,7 +129,7 @@ static inline OPSTATUS NETWORK_RESOLVE_FUNC(Address)(
     }
   }
 
-  freeaddrinfo(result);
+  NETWORK_RESOLVE_FUNC(_FreeAddrInfo)(result);
   if (addresses->size == 0) {
     if (error != NULL)
       *error = NETWORK_ERROR_CONST(HOST_NOT_FOUND);

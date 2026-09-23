@@ -1,7 +1,7 @@
 CC ?= cc
 CFLAGS ?= -std=c11 -Wall -Wextra -Wpedantic -Werror -D_POSIX_C_SOURCE=200809L
 BUILD ?= .build
-LDLIBS ?= -lm
+LDLIBS ?=
 
 TESTS := Math Arithmetic Value Equations AllTypes IncludeAll
 

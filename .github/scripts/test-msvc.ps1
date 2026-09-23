@@ -99,6 +99,6 @@ $network = @{
   "surface"="Surface.c"; "include-order"="IncludeOrder.c"
 }
 foreach ($name in $network.Keys) {
-  Invoke-CongroTest "Codespace/Tests/Network" $name @($network[$name]) @("ws2_32.lib")
+  Invoke-CongroTest "Codespace/Tests/Network" $name @($network[$name])
 }
-Invoke-CongroTest "Codespace/Tests/Network" "multi-tu" @("MultiTU_Main.c","MultiTU_A.c","MultiTU_B.c") @("ws2_32.lib")
+Invoke-CongroTest "Codespace/Tests/Network" "multi-tu" @("MultiTU_Main.c","MultiTU_A.c","MultiTU_B.c")

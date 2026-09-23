@@ -3,7 +3,6 @@
 #include "../../Core/Namespace.h"
 #include "../../Core/Preprocessor/Compiling.inc"
 
-#include <math.h>
 #include <stdint.h>
 
 #define MATH_MOD(NAME) GNS2(LIB_PREFIX(Math), NAME)
