@@ -1,0 +1,30 @@
+#pragma once
+
+SWAP_BYTES_PROTOTYPE {
+  unsigned char temporary[SWAP_BLOCK_SIZE];
+  unsigned char *leftBytes = left;
+  unsigned char *rightBytes = right;
+
+  if (size == 0)
+    return STATUS_CONST(SUCCESS);
+  if (!left || !right)
+    return STATUS_CONST(INVALID_ARGUMENT);
+  if (left == right)
+    return STATUS_CONST(SUCCESS);
+
+  while (size != 0) {
+    size_t blockSize =
+        size > SWAP_BLOCK_SIZE ? SWAP_BLOCK_SIZE : size;
+
+    memcpy(temporary, leftBytes, blockSize);
+    memcpy(leftBytes, rightBytes, blockSize);
+    memcpy(rightBytes, temporary, blockSize);
+
+    leftBytes += blockSize;
+    rightBytes += blockSize;
+    size -= blockSize;
+  }
+
+  return STATUS_CONST(SUCCESS);
+}
+/* EOF */
