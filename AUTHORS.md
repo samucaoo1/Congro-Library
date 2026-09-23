@@ -1,6 +1,6 @@
 # Authors and Contributors
 
-[Português (Brasil)](Translations/Portugues-Brasil/AUTHORS(PT-BR).md)
+[Português (Brasil)](Translations/Portugues-Brasil/AUTHORS(PT-BR).md) · [Español (Latinoamérica)](Translations/Espanol-LATAM/AUTHORS(ES-LATAM).md)
 
 ## Creator and primary maintainer
 
