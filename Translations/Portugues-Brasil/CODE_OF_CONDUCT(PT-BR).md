@@ -1,6 +1,6 @@
 # Código de Conduta
 
-[English](../../CODE_OF_CONDUCT.md)
+[Español (Latinoamérica)](../Espanol-LATAM/CODE_OF_CONDUCT(ES-LATAM).md) · [English](../../CODE_OF_CONDUCT.md)
 
 Congro;Library é construída em torno de curiosidade, aprendizado, legibilidade e colaboração. A participação no projeto deve refletir esses mesmos valores.
 
