@@ -1,5 +1,5 @@
 # Congro;Library 
-[Changelog](Version.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)  
+[Changelog](Version.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)  
 <pre>
 
 A library for curious minds exploring beyond the expected path.
@@ -155,6 +155,11 @@ $ git push
 
 
 Contributions, experiments, improvements, and constructive criticism are welcome.
+
+By participating in the project, you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+> Credits
+Congro;Library was created by [Samuel (okarin)](https://github.com/samucaoo1). See [AUTHORS.md](AUTHORS.md) for project authorship and contributor credits.
 
 > License
 Congro;Library is licensed under the European Union Public Licence, Version 1.2 only (EUPL-1.2).
