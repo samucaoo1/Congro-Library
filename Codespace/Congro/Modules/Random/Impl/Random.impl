@@ -1,8 +1,10 @@
-inline static TRandomSource RANDOM_FUNC(SourceFromSeed)(uint64_t seed) {
-  TRandomSource source;
-  RANDOM_SOURCE_FUNC(Init)(&source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable), seed,
-                         NULL);
-  return source;
+inline static OPSTATUS RANDOM_FUNC(_SourceFromSeed)(
+    TRandomSource *source,
+    RANDOM_ENGINE_TYPE(Xoshiro) *state,
+    uint64_t seed) {
+  return RANDOM_SOURCE_FUNC(InitWithState)(
+      source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable), state, sizeof(*state), seed,
+      NULL);
 }
 
 inline static uint64_t RANDOM_FUNC(U64)(void) {
@@ -10,18 +12,36 @@ inline static uint64_t RANDOM_FUNC(U64)(void) {
 }
 
 inline static uint64_t RANDOM_FUNC(U64_FromSeed)(uint64_t seed) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(seed);
+  TRandomSource source;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+
+  if (RANDOM_FUNC(_SourceFromSeed)(&source, &state, seed) !=
+      STATUS_CONST(SUCCESS))
+    return 0U;
+
   return RANDOM_SOURCE_FUNC(NextU64)(&source);
 }
 
 inline static uint64_t RANDOM_FUNC(RangeU64)(uint64_t minimum,
                                            uint64_t maximum) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(RANDOM_FUNC(U64)());
+  TRandomSource source;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+
+  if (RANDOM_FUNC(_SourceFromSeed)(&source, &state, RANDOM_FUNC(U64)()) !=
+      STATUS_CONST(SUCCESS))
+    return minimum;
+
   return RANDOM_DISTRIBUTION_FUNC(U64)(&source, minimum, maximum);
 }
 
 inline static int64_t RANDOM_FUNC(RangeI64)(int64_t minimum, int64_t maximum) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(RANDOM_FUNC(U64)());
+  TRandomSource source;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+
+  if (RANDOM_FUNC(_SourceFromSeed)(&source, &state, RANDOM_FUNC(U64)()) !=
+      STATUS_CONST(SUCCESS))
+    return minimum;
+
   return RANDOM_DISTRIBUTION_FUNC(I64)(&source, minimum, maximum);
 }
 

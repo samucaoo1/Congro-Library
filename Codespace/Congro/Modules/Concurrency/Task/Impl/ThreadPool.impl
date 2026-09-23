@@ -12,7 +12,7 @@ inline static bool ConcurrencyInternal_ThreadPool_Pop(TThreadPool *pool, TTask *
 inline static void ConcurrencyInternal_ThreadPool_Worker(void *argument) {
   TThreadPool *pool = (TThreadPool *)argument;
   for (;;) {
-    TTask task;
+    TTask task = {0};
     if (MUTEX_FUNC(Lock)(&pool->mutex) != STATUS_CONST(SUCCESS)) { pool->stopping = true; break; }
     while (pool->queueSize == 0 && !pool->stopping) {
       { OPSTATUS status = CONDITION_FUNC(Wait)(&pool->hasWork, &pool->mutex); if (status != STATUS_CONST(SUCCESS)) {
@@ -26,7 +26,10 @@ inline static void ConcurrencyInternal_ThreadPool_Worker(void *argument) {
       (void)MUTEX_FUNC(Unlock)(&pool->mutex);
       break;
     }
-    (void)ConcurrencyInternal_ThreadPool_Pop(pool, &task);
+    if (!ConcurrencyInternal_ThreadPool_Pop(pool, &task)) {
+      (void)MUTEX_FUNC(Unlock)(&pool->mutex);
+      continue;
+    }
     (void)CONDITION_FUNC(NotifyOne)(&pool->hasSpace);
     (void)MUTEX_FUNC(Unlock)(&pool->mutex);
     (void)TASK_FUNC(Run)(&task);

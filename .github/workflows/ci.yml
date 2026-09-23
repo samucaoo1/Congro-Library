@@ -214,7 +214,7 @@ jobs:
           fetch-depth: 0
 
       - name: Unit and history tests
-        run: python3 -m unittest -v .github/entropy/test_entropy.py
+        run: python3 .github/entropy/test_entropy.py -v
 
       - name: Preview current source snapshot
         run: python3 .github/entropy/entropy.py --provisional --output-dir /tmp/entropy-preview

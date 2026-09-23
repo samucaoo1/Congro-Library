@@ -81,6 +81,7 @@ inline static OPSTATUS RANDOM_SHUFFLE_FUNC(Vector)(void *vector,
                                                  size_t count,
                                                  size_t elementSize) {
   TRandomSource source;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
 
   if (elementSize == 0U) {
     return STATUS_CONST(INVALID_ARGUMENT);
@@ -98,9 +99,9 @@ inline static OPSTATUS RANDOM_SHUFFLE_FUNC(Vector)(void *vector,
     return STATUS_CONST(ARITHMETIC_OVERFLOW);
   }
 
-  if (RANDOM_SOURCE_FUNC(Init)(&source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable),
-                               RANDOM_ENTROPY_FUNC(Collect)(), NULL) !=
-      STATUS_CONST(SUCCESS)) {
+  if (RANDOM_SOURCE_FUNC(InitWithState)(
+          &source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable), &state, sizeof(state),
+          RANDOM_ENTROPY_FUNC(Collect)(), NULL) != STATUS_CONST(SUCCESS)) {
     return STATUS_CONST(INVALID_ARGUMENT);
   }
 
