@@ -1,0 +1,3 @@
+# Keep the entropy metric stable across platforms.
+# Line-ending normalization must not turn a checkout into thousands of changes.
+Codespace/Congro/** text eol=lf

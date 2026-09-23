@@ -1,5 +1,7 @@
 # Congro;Library 
-[Changelog](Version.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)  
+[Changelog](Version.md)&nbsp;|&nbsp;[Entropy](ENTROPY.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)  
+[![Entropy](https://raw.githubusercontent.com/samucaoo1/Congro-Library/entropy-badge/.github/badges/entropy.svg)](ENTROPY.md)
+
 <pre>
 
 A library for curious minds exploring beyond the expected path.
