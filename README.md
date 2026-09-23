@@ -1,5 +1,5 @@
 # Congro;Library 
-[Changelog](Version.md)&nbsp;|&nbsp;[Portuguese](README(PT-BR).md)  
+[Changelog](Version.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)  
 <pre>
 
 A library for curious minds exploring beyond the expected path.

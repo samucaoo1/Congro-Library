@@ -1,5 +1,7 @@
 # Política de Segurança
 
+[English](../../SECURITY.md)
+
 Congro;Library está atualmente em fase experimental e em desenvolvimento ativo.
 
 ## Relatando uma vulnerabilidade
