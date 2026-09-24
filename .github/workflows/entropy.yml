@@ -53,21 +53,29 @@ jobs:
       - name: Calculate entropy
         run: python3 .github/entropy/entropy.py --output-dir /tmp/congro-entropy
 
-      - name: Update generated badge branch
+      - name: Update generated entropy state
         shell: bash
         run: |
-          git fetch origin entropy-badge
-          rm -rf /tmp/entropy-badge
-          git worktree add /tmp/entropy-badge origin/entropy-badge
-          cd /tmp/entropy-badge
-          git checkout -B entropy-badge origin/entropy-badge
+          rm -rf /tmp/entropy-state
+
+          if git fetch origin entropy-state; then
+            git worktree add /tmp/entropy-state origin/entropy-state
+            cd /tmp/entropy-state
+            git checkout -B entropy-state origin/entropy-state
+          else
+            git worktree add -b entropy-state /tmp/entropy-state "$GITHUB_SHA"
+            cd /tmp/entropy-state
+          fi
+
           mkdir -p .github/badges .github/entropy
           cp /tmp/congro-entropy/entropy.svg .github/badges/entropy.svg
           cp /tmp/congro-entropy/state.json .github/entropy/state.json
           git add .github/badges/entropy.svg .github/entropy/state.json
+
           if git diff --cached --quiet; then
-            echo "Entropy badge is already current."
+            echo "Entropy state is already current."
             exit 0
           fi
-          git commit -m "chore: update entropy badge"
-          git push origin HEAD:entropy-badge
+
+          git commit -m "chore: update entropy state"
+          git push origin HEAD:entropy-state
