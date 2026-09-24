@@ -1,0 +1,73 @@
+name: Entropy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Codespace/Congro/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: entropy-main
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update entropy badge
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout canonical history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require main
+        shell: bash
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Entropy can only be initialized or updated from main."
+            exit 1
+          fi
+          test -d Codespace/Congro
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Freeze entropy origin when first published
+        shell: bash
+        run: |
+          git fetch --tags --force origin
+          if ! git rev-parse --verify --quiet refs/tags/entropy-origin >/dev/null; then
+            git tag -a entropy-origin "$GITHUB_SHA" -m "Congro;Library entropy origin"
+            git push origin refs/tags/entropy-origin
+          fi
+
+      - name: Calculate entropy
+        run: python3 .github/entropy/entropy.py --output-dir /tmp/congro-entropy
+
+      - name: Update generated badge branch
+        shell: bash
+        run: |
+          git fetch origin entropy-badge
+          rm -rf /tmp/entropy-badge
+          git worktree add /tmp/entropy-badge origin/entropy-badge
+          cd /tmp/entropy-badge
+          git checkout -B entropy-badge origin/entropy-badge
+          mkdir -p .github/badges .github/entropy
+          cp /tmp/congro-entropy/entropy.svg .github/badges/entropy.svg
+          cp /tmp/congro-entropy/state.json .github/entropy/state.json
+          git add .github/badges/entropy.svg .github/entropy/state.json
+          if git diff --cached --quiet; then
+            echo "Entropy badge is already current."
+            exit 0
+          fi
+          git commit -m "chore: update entropy badge"
+          git push origin HEAD:entropy-badge

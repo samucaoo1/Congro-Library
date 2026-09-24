@@ -1,6 +1,6 @@
 # Security Policy
 
-[Português (Brasil)](Translations/Portugues-Brasil/SECURITY(PT-BR).md)
+[Português (Brasil)](Translations/Portugues-Brasil/SECURITY(PT-BR).md) · [Español (Latinoamérica)](Translations/Espanol-LATAM/SECURITY(ES-LATAM).md)
 
 Congro;Library is currently experimental and under active development.
 

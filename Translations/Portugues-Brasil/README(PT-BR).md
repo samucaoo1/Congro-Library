@@ -1,5 +1,5 @@
 # Congro;Library
-[Changelog](../../Version.md)&nbsp;|&nbsp;[English](../../README.md)
+[Changelog](../../Version.md)&nbsp;|&nbsp;[Por que EUPL?](LICENSING(PT-BR).md)&nbsp;|&nbsp;[Código de Conduta](CODE_OF_CONDUCT(PT-BR).md)&nbsp;|&nbsp;[Créditos](AUTHORS(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](../Espanol-LATAM/README(ES-LATAM).md)&nbsp;|&nbsp;[English](../../README.md)
 <pre>
 
 Uma biblioteca para mentes curiosas que exploram além do caminho esperado.
@@ -157,8 +157,15 @@ $ git push
 
 Contribuições, experimentos, melhorias e críticas construtivas são bem-vindos.
 
+Ao participar do projeto, você concorda em seguir o [Código de Conduta](CODE_OF_CONDUCT(PT-BR).md).
+
+> Créditos
+Congro;Library foi criada por [Samuel (okarin)](https://github.com/samucaoo1). Consulte [AUTHORS(PT-BR).md](AUTHORS(PT-BR).md) para os créditos de autoria e contribuição do projeto.
+
 > Licença
 Congro;Library é licenciada sob a Licença Pública da União Europeia, versão 1.2 somente (EUPL-1.2).
+
+Veja [Por que EUPL?](LICENSING(PT-BR).md) para a justificativa de licenciamento do projeto.
 
 > Mensagem final
 $ congro --message

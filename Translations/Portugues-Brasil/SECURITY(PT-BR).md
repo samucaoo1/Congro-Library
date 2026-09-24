@@ -1,6 +1,6 @@
 # Política de Segurança
 
-[English](../../SECURITY.md)
+[Español (Latinoamérica)](../Espanol-LATAM/SECURITY(ES-LATAM).md) · [English](../../SECURITY.md)
 
 Congro;Library está atualmente em fase experimental e em desenvolvimento ativo.
 
