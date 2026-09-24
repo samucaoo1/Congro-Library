@@ -117,6 +117,6 @@ The algorithm has automated tests for:
 
 The README badge is generated automatically after source changes land on `main`.
 
-The workflow stores the rendered badge and machine-readable state directly under `.github/` on `main`. These generated files are outside `Codespace/Congro/**`, so updating them does not change Entropy. Generated-state commits use `[skip ci]` and do not retrigger the Entropy workflow.
+The workflow stores the rendered badge and machine-readable state directly under `.github/` on `main`. Because `main` requires pull requests, source changes generate a tiny `automation/entropy-state` pull request containing only those generated files; it is squash-merged back into `main` and the temporary branch may then be deleted. These files are outside `Codespace/Congro/**`, so publishing them does not change Entropy.
 
 The machine-readable state contains the origin commit, current commit, initial entropy, accumulated change, absolute total, Greek band, and unit.

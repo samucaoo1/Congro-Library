@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - main
-      - Initial-Release
-      - entropy-badge
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - '.github/badges/**'
+      - '.github/entropy/state.json'
   workflow_dispatch:
 
 permissions:

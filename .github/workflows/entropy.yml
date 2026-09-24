@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: entropy-main
@@ -54,9 +55,20 @@ jobs:
       - name: Calculate entropy
         run: python3 .github/entropy/entropy.py --output-dir /tmp/congro-entropy
 
-      - name: Update generated entropy state
+      - name: Publish generated entropy state
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
+            echo "main advanced during entropy calculation; newer run will publish it."
+            exit 0
+          fi
+
+          branch="automation/entropy-state"
+          git checkout -B "$branch" "$GITHUB_SHA"
+
           cp /tmp/congro-entropy/entropy.svg .github/badges/entropy.svg
           cp /tmp/congro-entropy/state.json .github/entropy/state.json
           git add .github/badges/entropy.svg .github/entropy/state.json
@@ -66,13 +78,14 @@ jobs:
             exit 0
           fi
 
-          # Do not publish stale generated state if main advanced while this run
-          # was calculating. The newer source push has its own Entropy run.
-          git fetch origin main
-          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
-            echo "main advanced during entropy calculation; newer run will publish it."
-            exit 0
+          git commit -m "chore: update entropy state"
+          git push --force origin "$branch"
+
+          pr_number="$(gh pr list --base main --head "$branch" --state open             --json number --jq '.[0].number // empty')"
+
+          if [ -z "$pr_number" ]; then
+            gh pr create               --base main               --head "$branch"               --title "chore: update entropy state [skip ci]"               --body "Automated refresh of the generated Entropy badge and machine-readable state."
+            pr_number="$(gh pr list --base main --head "$branch" --state open               --json number --jq '.[0].number')"
           fi
 
-          git commit -m "chore: update entropy state [skip ci]"
-          git push origin HEAD:main
+          gh pr merge "$pr_number"             --squash             --delete-branch             --subject "chore: update entropy state [skip ci]"
