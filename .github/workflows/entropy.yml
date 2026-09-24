@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'Codespace/Congro/**'
+      - '.github/workflows/entropy.yml'
   workflow_dispatch:
 
 permissions:
@@ -56,18 +57,6 @@ jobs:
       - name: Update generated entropy state
         shell: bash
         run: |
-          rm -rf /tmp/entropy-state
-
-          if git fetch origin entropy-state; then
-            git worktree add /tmp/entropy-state origin/entropy-state
-            cd /tmp/entropy-state
-            git checkout -B entropy-state origin/entropy-state
-          else
-            git worktree add -b entropy-state /tmp/entropy-state "$GITHUB_SHA"
-            cd /tmp/entropy-state
-          fi
-
-          mkdir -p .github/badges .github/entropy
           cp /tmp/congro-entropy/entropy.svg .github/badges/entropy.svg
           cp /tmp/congro-entropy/state.json .github/entropy/state.json
           git add .github/badges/entropy.svg .github/entropy/state.json
@@ -77,5 +66,13 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: update entropy state"
-          git push origin HEAD:entropy-state
+          # Do not publish stale generated state if main advanced while this run
+          # was calculating. The newer source push has its own Entropy run.
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
+            echo "main advanced during entropy calculation; newer run will publish it."
+            exit 0
+          fi
+
+          git commit -m "chore: update entropy state [skip ci]"
+          git push origin HEAD:main

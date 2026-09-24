@@ -1,11 +1,11 @@
 {
-  "display": "18824β",
-  "total": 18824,
+  "display": "18866β",
+  "total": 18866,
   "symbol": "β",
   "unit": "H",
-  "origin_commit": null,
-  "ref_commit": "b143ce1f6119f195811df8008b2df06bd212851f",
-  "initial_entropy": 18824,
+  "origin_commit": "1aaed9650e08de024d1c63e46bdf5324f20fa522",
+  "ref_commit": "1aaed9650e08de024d1c63e46bdf5324f20fa522",
+  "initial_entropy": 18866,
   "accumulated_change": 0,
-  "provisional": true
+  "provisional": false
 }
