@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - Initial-Release
+      - entropy-badge
   pull_request:
     branches:
       - main
