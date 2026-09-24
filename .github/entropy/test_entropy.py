@@ -48,6 +48,16 @@ class EntropyFormatTests(unittest.TestCase):
         self.assertEqual(entropy.line_count_bytes(b"a\nb\n"), 2)
         self.assertEqual(entropy.line_count_bytes(b""), 0)
 
+    def test_render_and_state_json(self) -> None:
+        state = entropy.EntropyState("a", "b", 18537, 12, 18549, "β", "H")
+        svg = entropy.render_svg(state)
+        payload = entropy.state_json(state, provisional=False)
+        self.assertIn("Entropy", svg)
+        self.assertIn("18549β", svg)
+        self.assertEqual(payload["display"], "18549β")
+        self.assertEqual(payload["accumulated_change"], 12)
+        self.assertFalse(payload["provisional"])
+
 
 class EntropyGitHistoryTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -125,6 +135,33 @@ class EntropyGitHistoryTests(unittest.TestCase):
         commit_all(self.repo, "revert")
         self.assertEqual(self.state().accumulated_change, 4)
         self.assertEqual(self.state().total, 7)
+
+    def test_provisional_cli_writes_outputs(self) -> None:
+        config = self.repo / "entropy-config.json"
+        config.write_text(
+            '{"scope":"Codespace/Congro","origin_tag":"missing-origin",'
+            '"block_size":10000,"unit":"H"}\n',
+            encoding="utf-8",
+        )
+        output = self.repo / "out"
+        result = entropy.main(
+            [
+                "--repo",
+                str(self.repo),
+                "--config",
+                "entropy-config.json",
+                "--provisional",
+                "--output-dir",
+                str(output),
+            ]
+        )
+        self.assertEqual(result, 0)
+        state = entropy.load_config(config)
+        self.assertEqual(state["scope"], "Codespace/Congro")
+        payload = (output / "state.json").read_text(encoding="utf-8")
+        badge = (output / "entropy.svg").read_text(encoding="utf-8")
+        self.assertIn('"provisional": true', payload)
+        self.assertIn("Entropy", badge)
 
 
 if __name__ == "__main__":

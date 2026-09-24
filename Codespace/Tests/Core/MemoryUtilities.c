@@ -17,12 +17,21 @@ int main(void) {
   unsigned char *byte = NULL;
   MemoryUtilities_Aligned *aligned = NULL;
   size_t savedOffset;
+  void *raw = NULL;
+  void *rawArray = NULL;
   void *rawAligned = NULL;
   void *rawArrayAligned = NULL;
   int *typedDirect = NULL;
 
   if (ARENA_FUNC(Create)(&arena, 256) != STATUS_CONST(SUCCESS))
     return 1;
+  if (ARENA_FUNC(Alloc)(&arena, &raw, sizeof(int)) != STATUS_CONST(SUCCESS) ||
+      raw == NULL)
+    return 19;
+  if (ARENA_FUNC(AllocArray)(&arena, &rawArray, 2U, sizeof(int)) !=
+          STATUS_CONST(SUCCESS) ||
+      rawArray == NULL)
+    return 20;
   if (ARENA_FUNC(AllocAligned)(&arena, &rawAligned, sizeof(int),
                                _Alignof(int)) != STATUS_CONST(SUCCESS) ||
       rawAligned == NULL)

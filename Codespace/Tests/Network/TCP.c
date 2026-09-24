@@ -21,8 +21,13 @@ int main(void) {
   endpoint = *NETWORK_LISTENER_FUNC(LocalEndpoint)(&listener);
   assert(endpoint.port != 0);
 
-  assert(NETWORK_CONNECTION_FUNC(Connect)(&client, "127.0.0.1", endpoint.port, NULL) ==
-         STATUS_NS(SUCCESS));
+  {
+    CHRONOMETRY_TYPE(Duration) timeout =
+        DURATION_FUNC(FromNanoseconds)(2 * CHRONOMETRY_NANOSECONDS_PER_SECOND);
+    assert(NETWORK_CONNECTION_FUNC(ConnectFor)(
+               &client, "127.0.0.1", endpoint.port, timeout, NULL) ==
+           STATUS_NS(SUCCESS));
+  }
   assert(NETWORK_LISTENER_FUNC(Accept)(&listener, &server, NULL) == STATUS_NS(SUCCESS));
 
   assert(NETWORK_CONNECTION_FUNC(WriteAll)(&client, message, sizeof(message), NULL) ==
@@ -30,6 +35,9 @@ int main(void) {
   assert(NETWORK_CONNECTION_FUNC(ReadExact)(&server, buffer, sizeof(message), NULL) ==
          STATUS_NS(SUCCESS));
   assert(memcmp(buffer, message, sizeof(message)) == 0);
+  assert(NETWORK_CONNECTION_FUNC(Shutdown)(
+             &client, SOCKET_TYPE(SHUTDOWN_WRITE), NULL) ==
+         STATUS_NS(SUCCESS));
 
   NETWORK_CONNECTION_FUNC(Destroy)(&server);
   NETWORK_CONNECTION_FUNC(Destroy)(&client);

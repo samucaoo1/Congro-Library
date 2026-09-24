@@ -154,6 +154,7 @@
     TEST_ASSERT(*LINKED_LIST_FUNC(SUFFIX, Back)(&list) == (TYPE)(B));          \
     TEST_ASSERT(LINKED_LIST_FUNC(SUFFIX, Begin)(&list) == list.head);          \
     TEST_ASSERT(LINKED_LIST_FUNC(SUFFIX, End)(&list) == NULL);                 \
+    TEST_ASSERT(LINKED_LIST_FUNC(SUFFIX, RBegin)(&list) == list.tail);         \
     TEST_ASSERT(LINKED_LIST_FUNC(SUFFIX, Insert)(&list, list.tail, (TYPE)(C), &node) == STATUS_CONST(SUCCESS)); \
     TEST_ASSERT(node != NULL);                                                 \
     TEST_ASSERT(LINKED_LIST_FUNC(SUFFIX, Erase)(&list, node, NULL) == STATUS_CONST(SUCCESS)); \

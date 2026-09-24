@@ -43,6 +43,16 @@ int main(void) {
     return 6;
 
   values[0] = 7;
+
+  {
+    void *allocated = values;
+    status = ALLOC_FUNC(ReallocArray)(&allocated, 8U, sizeof(int));
+    if (status != STATUS_CONST(SUCCESS) || allocated == NULL)
+      return 17;
+    values = (int *)allocated;
+  }
+  if (values[0] != 7)
+    return 18;
   original = values;
 
   {

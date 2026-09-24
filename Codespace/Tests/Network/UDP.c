@@ -28,6 +28,21 @@ int main(void) {
   assert(received == sizeof(message));
   assert(memcmp(buffer, message, sizeof(message)) == 0);
 
+  assert(NETWORK_DATAGRAM_FUNC(SetPeer)(&sender, &destination, NULL) ==
+         STATUS_NS(SUCCESS));
+  assert(NETWORK_DATAGRAM_FUNC(SetPeer)(&receiver, &source, NULL) ==
+         STATUS_NS(SUCCESS));
+  memset(buffer, 0, sizeof(buffer));
+  sent = 0;
+  received = 0;
+  assert(NETWORK_DATAGRAM_FUNC(Send)(&sender, message, sizeof(message), &sent,
+                                     NULL) == STATUS_NS(SUCCESS));
+  assert(sent == sizeof(message));
+  assert(NETWORK_DATAGRAM_FUNC(Receive)(&receiver, buffer, sizeof(buffer),
+                                        &received, NULL) == STATUS_NS(SUCCESS));
+  assert(received == sizeof(message));
+  assert(memcmp(buffer, message, sizeof(message)) == 0);
+
   NETWORK_DATAGRAM_FUNC(Close)(&sender);
   NETWORK_DATAGRAM_FUNC(Close)(&receiver);
   return 0;

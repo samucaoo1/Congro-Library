@@ -17,6 +17,10 @@ int main(void) {
 
   if (MEMORY_FUNC(Move)(overlap + 1, overlap, 5) != STATUS_CONST(SUCCESS))
     return 3;
+  if (MEMORY_FUNC(Set)(destination, 'X', sizeof(destination)) !=
+          STATUS_CONST(SUCCESS) ||
+      destination[0] != 'X')
+    return 20;
   if (MEMORY_FUNC(Zero)(destination, sizeof(destination)) !=
       STATUS_CONST(SUCCESS))
     return 4;

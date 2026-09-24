@@ -23,6 +23,7 @@ int main(void) {
   assert(THREAD_POOL_FUNC(Submit)(
       &pool, FUTURE_FUNC(Task)(&futureTask, &future, compute, &value)) ==
       STATUS_CONST(SUCCESS));
+  assert(FUTURE_FUNC(Wait)(&future) == STATUS_CONST(SUCCESS));
   assert(FUTURE_FUNC(Get)(&future, &result, &status) == STATUS_CONST(SUCCESS));
   assert(result == &value);
   assert(value == 42);
