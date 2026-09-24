@@ -104,6 +104,10 @@ inline static OPSTATUS RANDOM_SHUFFLE_FUNC(Vector)(void *vector,
     return STATUS_CONST(INVALID_ARGUMENT);
   }
 
-  return RANDOM_SHUFFLE_FUNC(VectorFromSource)(vector, count, elementSize,
-                                              &source);
+  {
+    OPSTATUS status = RANDOM_SHUFFLE_FUNC(VectorFromSource)(
+        vector, count, elementSize, &source);
+    RANDOM_SOURCE_FUNC(Destroy)(&source);
+    return status;
+  }
 }
