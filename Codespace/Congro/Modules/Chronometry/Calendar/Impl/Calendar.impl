@@ -173,12 +173,21 @@ CHRONOMETRY_CALENDAR_DATE_TO_ORDINAL_PROTOTYPE {
 CHRONOMETRY_CALENDAR_DATE_FROM_ORDINAL_PROTOTYPE {
   CALENDAR_FUNC(System) system;
   CHRONOMETRY_TYPE(Date) candidate;
+  CHRONOMETRY_TYPE(Date) minimumDate = {-4799, CALENDAR_CONST(JANUARY), 1};
+  CHRONOMETRY_TYPE(Date) maximumDate = {
+      4194303, CALENDAR_CONST(DECEMBER), 31};
+  int64_t minimumOrdinal;
+  int64_t maximumOrdinal;
   if (policy == NULL || date == NULL)
     return STATUS_CONST(INVALID_ARGUMENT);
   system = policy->kind == CALENDAR_CONST(PURE_SYSTEM) ? policy->system
       : (ordinal >= CALENDAR_FUNC(_ToJdn)(policy->reform.after,
                                         policy->reform.firstAfter)
              ? policy->reform.after : policy->reform.before);
+  minimumOrdinal = CALENDAR_FUNC(_ToJdn)(system, minimumDate);
+  maximumOrdinal = CALENDAR_FUNC(_ToJdn)(system, maximumDate);
+  if (ordinal < minimumOrdinal || ordinal > maximumOrdinal)
+    return STATUS_CONST(OUT_OF_RANGE);
   candidate = CALENDAR_FUNC(_FromJdn)(system, ordinal);
   if (!CALENDAR_FUNC(DateIsValid)(policy, candidate))
     return STATUS_CONST(OUT_OF_RANGE);

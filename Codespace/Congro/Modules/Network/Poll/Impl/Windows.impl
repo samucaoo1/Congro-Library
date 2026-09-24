@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits.h>
+#include <string.h>
 #include "../../../../Core/Memory/Alloc.h"
 
 static inline short NETWORK_POLLER_FUNC(_NativeInterests)(
@@ -123,6 +124,9 @@ static inline OPSTATUS NETWORK_POLLER_FUNC(_WaitNative)(
         poller, error, NETWORK_ERROR_CONST(RESOURCE_EXHAUSTED),
         STATUS_CONST(OUT_OF_MEMORY));
   }
+
+  memset(flags, 0,
+         poller->registrations.size * sizeof(TNetwork_Event_Flags));
 
   for (i = 0; i < poller->registrations.size; ++i) {
     TNetwork_Poll_Registration *r = &poller->registrations.data[i];

@@ -5,6 +5,7 @@
 
 #include "../../../Core/Memory/Swap.h"
 
+#include "Basic.h"
 #include "../Value/Clamp.h"
 #include "../Value/Between.h"
 #include "../Math.space"

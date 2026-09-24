@@ -10,27 +10,32 @@ inline static uint64_t RANDOM_FUNC(U64)(void) {
 }
 
 inline static uint64_t RANDOM_FUNC(U64_FromSeed)(uint64_t seed) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(seed);
-  uint64_t value = RANDOM_SOURCE_FUNC(NextU64)(&source);
-  RANDOM_SOURCE_FUNC(Destroy)(&source);
-  return value;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+  RANDOM_ENGINE_FUNC(Xoshiro, Seed)(&state, seed);
+  return RANDOM_ENGINE_FUNC(Xoshiro, Next)(&state);
+}
+
+inline static TRandomSource RANDOM_FUNC(_StackSource)(
+    RANDOM_ENGINE_TYPE(Xoshiro) *state, uint64_t seed) {
+  TRandomSource source = {
+      &RANDOM_ENGINE_FUNC(Xoshiro, VTable), NULL, state, sizeof(*state), false};
+  source.engine->seed(source.state, seed);
+  return source;
 }
 
 inline static uint64_t RANDOM_FUNC(RangeU64)(uint64_t minimum,
                                            uint64_t maximum) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(RANDOM_FUNC(U64)());
-  uint64_t value =
-      RANDOM_DISTRIBUTION_FUNC(U64)(&source, minimum, maximum);
-  RANDOM_SOURCE_FUNC(Destroy)(&source);
-  return value;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+  TRandomSource source =
+      RANDOM_FUNC(_StackSource)(&state, RANDOM_FUNC(U64)());
+  return RANDOM_DISTRIBUTION_FUNC(U64)(&source, minimum, maximum);
 }
 
 inline static int64_t RANDOM_FUNC(RangeI64)(int64_t minimum, int64_t maximum) {
-  TRandomSource source = RANDOM_FUNC(SourceFromSeed)(RANDOM_FUNC(U64)());
-  int64_t value =
-      RANDOM_DISTRIBUTION_FUNC(I64)(&source, minimum, maximum);
-  RANDOM_SOURCE_FUNC(Destroy)(&source);
-  return value;
+  RANDOM_ENGINE_TYPE(Xoshiro) state;
+  TRandomSource source =
+      RANDOM_FUNC(_StackSource)(&state, RANDOM_FUNC(U64)());
+  return RANDOM_DISTRIBUTION_FUNC(I64)(&source, minimum, maximum);
 }
 
 inline static double RANDOM_FUNC(F64)(void) {

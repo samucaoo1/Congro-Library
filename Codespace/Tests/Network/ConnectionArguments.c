@@ -4,10 +4,23 @@
 
 int main(void) {
   TNetwork_Connection connection;
+  TSocket socket;
   size_t count = 123;
   CHRONOMETRY_TYPE(Duration) negative;
 
   NETWORK_CONNECTION_FUNC(Init)(&connection);
+  SOCKET_FUNC(Init)(&socket);
+
+  assert(SOCKET_FUNC(Create)(
+             &socket, (TSocket_Family)99, SOCKET_TYPE(KIND_STREAM),
+             SOCKET_TYPE(PROTOCOL_TCP), NULL) == STATUS_NS(INVALID_ARGUMENT));
+  assert(socket.handle == TSOCKET_NATIVE_INVALID);
+  assert(SOCKET_FUNC(Create)(
+             &socket, SOCKET_TYPE(FAMILY_IPV4), SOCKET_TYPE(KIND_STREAM),
+             SOCKET_TYPE(PROTOCOL_UDP), NULL) == STATUS_NS(INVALID_ARGUMENT));
+  assert(SOCKET_FUNC(Shutdown)(
+             &socket, (TSocket_Shutdown)99, NULL) ==
+         STATUS_NS(INVALID_ARGUMENT));
 
   assert(NETWORK_CONNECTION_FUNC(Read)(NULL, NULL, 0, &count, NULL) ==
          STATUS_NS(INVALID_ARGUMENT));

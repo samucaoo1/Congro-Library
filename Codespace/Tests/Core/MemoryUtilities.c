@@ -22,6 +22,7 @@ int main(void) {
   void *rawAligned = NULL;
   void *rawArrayAligned = NULL;
   int *typedDirect = NULL;
+  unsigned char overlap[4] = {1U, 2U, 3U, 4U};
 
   if (ARENA_FUNC(Create)(&arena, 256) != STATUS_CONST(SUCCESS))
     return 1;
@@ -84,6 +85,9 @@ int main(void) {
     return 13;
   if (SWAP_FUNC(Bytes)(NULL, NULL, 0) != STATUS_CONST(SUCCESS))
     return 14;
+  if (SWAP_FUNC(Bytes)(overlap, overlap + 1, 3U) !=
+      STATUS_CONST(INVALID_ARGUMENT))
+    return 21;
 
   Memory_Swap(int, left, right);
   return left == 1 && right == 2 ? 0 : 15;

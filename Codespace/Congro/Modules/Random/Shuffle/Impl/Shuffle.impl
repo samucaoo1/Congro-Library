@@ -98,10 +98,12 @@ inline static OPSTATUS RANDOM_SHUFFLE_FUNC(Vector)(void *vector,
     return STATUS_CONST(ARITHMETIC_OVERFLOW);
   }
 
-  if (RANDOM_SOURCE_FUNC(Init)(&source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable),
-                               RANDOM_ENTROPY_FUNC(Collect)(), NULL) !=
-      STATUS_CONST(SUCCESS)) {
-    return STATUS_CONST(INVALID_ARGUMENT);
+  {
+    OPSTATUS status = RANDOM_SOURCE_FUNC(
+        Init)(&source, &RANDOM_ENGINE_FUNC(Xoshiro, VTable),
+              RANDOM_ENTROPY_FUNC(Collect)(), NULL);
+    if (status != STATUS_CONST(SUCCESS))
+      return status;
   }
 
   {

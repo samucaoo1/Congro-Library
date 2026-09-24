@@ -37,5 +37,12 @@ int main(void) {
       reform.reform.suppressedDays != 10U)
     return 11;
 
+  if (Chronometry_Calendar_DateFromOrdinal(&g, INT64_MAX, &back) !=
+      STATUS_CONST(OUT_OF_RANGE))
+    return 12;
+  if (Chronometry_Calendar_DateFromOrdinal(&g, INT64_MIN, &back) !=
+      STATUS_CONST(OUT_OF_RANGE))
+    return 13;
+
   return 0;
 }

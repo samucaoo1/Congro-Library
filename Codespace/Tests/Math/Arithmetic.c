@@ -18,5 +18,8 @@ int main(void) {
   if (Math_Arithmetic_SaturatingAdd_I8(INT8_MAX,1)!=INT8_MAX) return 12;
   if (Math_Arithmetic_SaturatingSub_U8(0U,1U)!=0U) return 13;
   if (Math_Arithmetic_SaturatingMul_U8(UINT8_MAX,2U)!=UINT8_MAX) return 14;
+  if (Math_Arithmetic_ClampAdd_I32(INT32_MIN,1,INT32_MIN,INT32_MIN)!=INT32_MIN) return 15;
+  if (Math_Arithmetic_ClampAdd_I32(0,INT32_MIN,INT32_MAX,INT32_MAX)!=INT32_MAX) return 16;
+  if (Math_Arithmetic_ClampMul_I32(-1,-1,INT32_MIN,INT32_MIN)!=INT32_MIN) return 17;
   return 0;
 }

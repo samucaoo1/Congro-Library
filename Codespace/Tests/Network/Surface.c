@@ -74,6 +74,11 @@ static void test_socket_stream(void) {
   assert(SOCKET_FUNC(Accept)(&listener.primary, &accepted, &peer, NULL) ==
          STATUS_CONST(SUCCESS));
 
+  received = 123U;
+  assert(SOCKET_FUNC(Receive)(&accepted, NULL, 0U, &received, NULL) ==
+         STATUS_CONST(SUCCESS));
+  assert(received == 0U);
+
   assert(SOCKET_FUNC(Send)(&client, message, sizeof(message), &sent, NULL) ==
          STATUS_CONST(SUCCESS));
   assert(sent == sizeof(message));

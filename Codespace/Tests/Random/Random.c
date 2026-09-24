@@ -21,6 +21,8 @@ int main(void) {
 
   if (first != second)
     return 1;
+  if (Random_U64_FromSeed(UINT64_C(42)) != first)
+    return 16;
 
   (void)Random_U64();
   {
