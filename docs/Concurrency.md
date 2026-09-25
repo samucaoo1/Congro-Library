@@ -16,8 +16,7 @@ Concurrency_Mutex_Lock(&mutex);
 
 **Header:** `Atomic/Atomic.h`
 
-Types include `TAtomicU32`, `TAtomicU64`, `TAtomicPtr`, `TAtomicBool`, and
-`TMemoryOrder`.
+Types include `TAtomicU32`, `TAtomicPtr`, `TAtomicBool`, and `TMemoryOrder`.\n`TAtomicU64` is available when the target reports lock-free 64-bit atomics.
 
 For `U32`, `U64`, and pointer atomics, the base family contains Load, Store,
 Exchange, and CompareExchange.
@@ -26,11 +25,11 @@ Example:
 
 ```c
 uint32_t value =
-    ATOMIC_FUNC(U32_Load)(&counter, MEMORY_ORDER_SEQ_CST);
+    ATOMIC_FUNC(U32_Load)(&counter, CONCURRENCY_ATOMIC_MEMORY_ORDER_SEQ_CST);
 
 /* direct */
 uint32_t same =
-    Concurrency_Atomic_U32_Load(&counter, MEMORY_ORDER_SEQ_CST);
+    Concurrency_Atomic_U32_Load(&counter, CONCURRENCY_ATOMIC_MEMORY_ORDER_SEQ_CST);
 ```
 
 U32/U64 additionally provide:
