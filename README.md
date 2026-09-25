@@ -11,7 +11,7 @@ types, and reusable structures.
 portable C, containers, concurrency, networking, sockets, random number generation,
 Unicode, text processing, mathematics, memory management, metaprogramming, generic C.
 
-[Changelog](Version.md)&nbsp;|&nbsp;[Roadmap](ROADMAP.md)&nbsp;|&nbsp;[Technical Index](docs/INDEX.md)&nbsp;|&nbsp;[Entropy](ENTROPY.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)
+[Changelog](Version.md)&nbsp;|&nbsp;[Roadmap](ROADMAP.md)&nbsp;|&nbsp;[API Documentation](docs/INDEX.md)&nbsp;|&nbsp;[Entropy](ENTROPY.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)
 
 [![Entropy](.github/badges/entropy.svg)](ENTROPY.md)
 
@@ -35,8 +35,8 @@ The current source tree contains:
 - **Text:** UTF-8/UTF-16 encoding, Unicode code points/width, and text grids.
 - **Type:** fundamental typed operations and extended numeric/value types.
 
-For a compact machine- and human-readable map of the repository, see
-[docs/INDEX.md](docs/INDEX.md). Future domains are tracked in [ROADMAP.md](ROADMAP.md).
+For a compact machine- and human-readable map of the repository, see the full
+[API documentation](docs/INDEX.md), including function-by-function examples and both namespace-macro and direct-call forms. Future domains are tracked in [ROADMAP.md](ROADMAP.md).
 
 <pre>
 A library for curious minds exploring beyond the expected path.
