@@ -4,6 +4,7 @@
   GRAPH_BFS_PROTOTYPE(VERTEX_SUFFIX, WEIGHT_SUFFIX) {                         \
     uint8_t *visited = NULL;                                                   \
     size_t *queue = NULL;                                                      \
+    void *storage = NULL;                                                      \
     size_t head = 0;                                                           \
     size_t tail = 0;                                                           \
     OPSTATUS status;                                                           \
@@ -11,17 +12,20 @@
       return STATUS_CONST(INVALID_ARGUMENT);                                  \
     if (start >= graph->vertexCount)                                           \
       return STATUS_CONST(OUT_OF_RANGE);                                      \
-    status = ALLOC_FUNC(AllocArray)((void **)&visited, graph->vertexCount,    \
+    status = ALLOC_FUNC(AllocArray)(&storage, graph->vertexCount,             \
                                     sizeof(*visited));                         \
     if (status != STATUS_CONST(SUCCESS))                                       \
       return status;                                                           \
+    visited = (uint8_t *)storage;                                              \
     memset(visited, 0, graph->vertexCount * sizeof(*visited));                \
-    status = ALLOC_FUNC(AllocArray)((void **)&queue, graph->vertexCount,      \
+    storage = NULL;                                                            \
+    status = ALLOC_FUNC(AllocArray)(&storage, graph->vertexCount,             \
                                     sizeof(*queue));                           \
     if (status != STATUS_CONST(SUCCESS)) {                                     \
       Memory_Free(visited);                                                    \
       return status;                                                           \
     }                                                                          \
+    queue = (size_t *)storage;                                                 \
     visited[start] = 1u;                                                       \
     queue[tail++] = start;                                                     \
     while (head < tail) {                                                      \
@@ -45,23 +49,27 @@
   GRAPH_DFS_PROTOTYPE(VERTEX_SUFFIX, WEIGHT_SUFFIX) {                         \
     uint8_t *visited = NULL;                                                   \
     size_t *stack = NULL;                                                      \
+    void *storage = NULL;                                                      \
     size_t top = 0;                                                            \
     OPSTATUS status;                                                           \
     if (!graph || !visitor)                                                    \
       return STATUS_CONST(INVALID_ARGUMENT);                                  \
     if (start >= graph->vertexCount)                                           \
       return STATUS_CONST(OUT_OF_RANGE);                                      \
-    status = ALLOC_FUNC(AllocArray)((void **)&visited, graph->vertexCount,    \
+    status = ALLOC_FUNC(AllocArray)(&storage, graph->vertexCount,             \
                                     sizeof(*visited));                         \
     if (status != STATUS_CONST(SUCCESS))                                       \
       return status;                                                           \
+    visited = (uint8_t *)storage;                                              \
     memset(visited, 0, graph->vertexCount * sizeof(*visited));                \
-    status = ALLOC_FUNC(AllocArray)((void **)&stack, graph->vertexCount,      \
+    storage = NULL;                                                            \
+    status = ALLOC_FUNC(AllocArray)(&storage, graph->vertexCount,             \
                                     sizeof(*stack));                           \
     if (status != STATUS_CONST(SUCCESS)) {                                     \
       Memory_Free(visited);                                                    \
       return status;                                                           \
     }                                                                          \
+    stack = (size_t *)storage;                                                 \
     visited[start] = 1u;                                                       \
     stack[top++] = start;                                                      \
     while (top > 0) {                                                          \
