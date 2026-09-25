@@ -10,11 +10,28 @@ Canonical repository: https://github.com/samucaoo1/Congro-Library
 - README: https://github.com/samucaoo1/Congro-Library/blob/main/README.md
 - Technical index: https://github.com/samucaoo1/Congro-Library/blob/main/docs/INDEX.md
 - Roadmap: https://github.com/samucaoo1/Congro-Library/blob/main/ROADMAP.md
-- Pattern/conventions: https://github.com/samucaoo1/Congro-Library/blob/main/PATTERN.md
+- Architecture/conventions: https://github.com/samucaoo1/Congro-Library/blob/main/docs/Architecture.md
 - Changelog: https://github.com/samucaoo1/Congro-Library/blob/main/Version.md
 - Entropy versioning: https://github.com/samucaoo1/Congro-Library/blob/main/ENTROPY.md
 - License rationale: https://github.com/samucaoo1/Congro-Library/blob/main/LICENSING.md
 - Security policy: https://github.com/samucaoo1/Congro-Library/blob/main/SECURITY.md
+
+## Documentation guides (Portuguese; C identifiers unchanged)
+
+- Getting started: https://github.com/samucaoo1/Congro-Library/blob/main/docs/GettingStarted.md
+- Core: https://github.com/samucaoo1/Congro-Library/blob/main/docs/Core.md
+- Bit: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Bit.md
+- Chronometry: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Chronometry.md
+- Concurrency: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Concurrency.md
+- Container: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Container.md
+- Math: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Math.md
+- Network: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Network.md
+- Random: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Random.md
+- Struct: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Struct.md
+- Text: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Text.md
+- Type: https://github.com/samucaoo1/Congro-Library/blob/main/docs/modules/Type.md
+- API signatures: https://github.com/samucaoo1/Congro-Library/tree/main/docs/api
+- Compilable examples: https://github.com/samucaoo1/Congro-Library/tree/main/docs/examples
 
 ## Source layout
 
@@ -36,7 +53,7 @@ Modules:
 - Bit
 - Chronometry
 - Concurrency
-- Container
+- Container (including Hash and Graph)
 - Math
 - Network
 - Random
