@@ -6,7 +6,9 @@ on:
       - main
     paths:
       - 'Codespace/Congro/**'
+      - '.github/entropy/**'
       - '.github/workflows/entropy.yml'
+      - '.gitattributes'
   workflow_dispatch:
 
 permissions:
@@ -52,8 +54,43 @@ jobs:
             git push origin refs/tags/entropy-origin
           fi
 
+      - name: Test entropy calculator
+        run: python3 -m unittest .github/entropy/test_entropy.py
+
       - name: Calculate entropy
-        run: python3 .github/entropy/entropy.py --output-dir /tmp/congro-entropy
+        run: python3 .github/entropy/entropy.py --ref "$GITHUB_SHA" --output-dir /tmp/congro-entropy
+
+      - name: Verify generated entropy state
+        shell: bash
+        run: |
+          python3 - "$GITHUB_SHA" <<'PY'
+          import json
+          import sys
+
+          expected = sys.argv[1]
+          with open("/tmp/congro-entropy/state.json", encoding="utf-8") as stream:
+              state = json.load(stream)
+
+          if state["ref_commit"] != expected:
+              raise SystemExit(
+                  f"entropy ref mismatch: expected {expected}, got {state['ref_commit']}"
+              )
+
+          if state["total"] != state["initial_entropy"] + state["accumulated_change"]:
+              raise SystemExit("entropy invariant failed: total != initial + accumulated")
+
+          if state["provisional"]:
+              raise SystemExit("canonical entropy state must not be provisional")
+
+          print(
+              "Verified:",
+              state["display"],
+              "=",
+              state["initial_entropy"],
+              "+",
+              state["accumulated_change"],
+          )
+          PY
 
       - name: Publish generated entropy state
         shell: bash
@@ -81,11 +118,16 @@ jobs:
           git commit -m "chore: update entropy state"
           git push --force origin "$branch"
 
-          pr_number="$(gh pr list --base main --head "$branch" --state open             --json number --jq '.[0].number // empty')"
+          pr_number="$(
+            gh pr list               --base main               --head "$branch"               --state open               --json number               --jq '.[0].number // empty'
+          )"
 
           if [ -z "$pr_number" ]; then
             gh pr create               --base main               --head "$branch"               --title "chore: update entropy state [skip ci]"               --body "Automated refresh of the generated Entropy badge and machine-readable state."
-            pr_number="$(gh pr list --base main --head "$branch" --state open               --json number --jq '.[0].number')"
+
+            pr_number="$(
+              gh pr list                 --base main                 --head "$branch"                 --state open                 --json number                 --jq '.[0].number'
+            )"
           fi
 
           gh pr merge "$pr_number"             --squash             --delete-branch             --subject "chore: update entropy state [skip ci]"
