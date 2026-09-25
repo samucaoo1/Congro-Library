@@ -16,6 +16,8 @@
     }                                                                          \
     if ((hash->size + hash->deleted + 1u) * 100u >                             \
         hash->capacity * HASH_LOAD_PERCENT) {                                  \
+      if (hash->capacity > SIZE_MAX / 2u)                                     \
+        return STATUS_CONST(ARITHMETIC_OVERFLOW);                             \
       status = HASH_OPERATION(KEY_SUFFIX, VALUE_SUFFIX, Rehash)(              \
           hash, hash->capacity * 2u);                                          \
       if (status != STATUS_CONST(SUCCESS))                                     \
