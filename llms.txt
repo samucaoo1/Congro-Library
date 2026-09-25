@@ -1,0 +1,71 @@
+# Congro;Library
+
+> Congro;Library is a modular C11 library for portable systems programming,
+> education, experimentation, and reusable low-level components.
+
+Canonical repository: https://github.com/samucaoo1/Congro-Library
+
+## Start here
+
+- README: https://github.com/samucaoo1/Congro-Library/blob/main/README.md
+- Technical index: https://github.com/samucaoo1/Congro-Library/blob/main/docs/INDEX.md
+- Roadmap: https://github.com/samucaoo1/Congro-Library/blob/main/ROADMAP.md
+- Pattern/conventions: https://github.com/samucaoo1/Congro-Library/blob/main/PATTERN.md
+- Changelog: https://github.com/samucaoo1/Congro-Library/blob/main/Version.md
+- Entropy versioning: https://github.com/samucaoo1/Congro-Library/blob/main/ENTROPY.md
+- License rationale: https://github.com/samucaoo1/Congro-Library/blob/main/LICENSING.md
+- Security policy: https://github.com/samucaoo1/Congro-Library/blob/main/SECURITY.md
+
+## Source layout
+
+- Core: https://github.com/samucaoo1/Congro-Library/tree/main/Codespace/Congro/Core
+- Modules: https://github.com/samucaoo1/Congro-Library/tree/main/Codespace/Congro/Modules
+- Tests: https://github.com/samucaoo1/Congro-Library/tree/main/Codespace/Tests
+
+## Current modules
+
+Core:
+- Algorithm
+- Cast
+- Error
+- Memory
+- Namespace
+- Preprocessor
+
+Modules:
+- Bit
+- Chronometry
+- Concurrency
+- Container
+- Math
+- Network
+- Random
+- Struct
+- Text
+- Type
+
+## Architectural facts
+
+- Language baseline: C11.
+- Header-oriented / single-header-style organization.
+- .impl files are implementation pages included by headers; they are not separately linked translation units.
+- .space files hold namespace/package configuration and common declarations.
+- OPSTATUS is used for operational failure reporting.
+- Public APIs aim to remain portable; OS-native details belong in backends or explicit native escape hatches.
+- Selected APIs can expose optional pseudo-method/vtable ergonomics while concrete functions remain fundamental.
+- The project follows a zero-link philosophy where viable: avoid mandatory user linker flags such as -lm, -pthread, or -lws2_32 when the implementation can remain self-contained.
+
+## License
+
+European Union Public Licence 1.2 only (EUPL-1.2-only).
+
+## Status
+
+Experimental and under active development. APIs may change.
+
+## Useful query vocabulary
+
+C11 library; portable C library; header-only C; single-header C; systems programming;
+containers; generic data structures; concurrency; threads; coroutines; networking;
+sockets; Unicode; UTF-8; UTF-16; text grid; random number generation; mathematics;
+memory management; C preprocessor metaprogramming; educational C library.
