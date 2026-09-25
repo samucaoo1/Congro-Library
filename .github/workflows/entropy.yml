@@ -55,7 +55,7 @@ jobs:
           fi
 
       - name: Test entropy calculator
-        run: python3 -m unittest .github/entropy/test_entropy.py
+        run: python3 .github/entropy/test_entropy.py
 
       - name: Calculate entropy
         run: python3 .github/entropy/entropy.py --ref "$GITHUB_SHA" --output-dir /tmp/congro-entropy
