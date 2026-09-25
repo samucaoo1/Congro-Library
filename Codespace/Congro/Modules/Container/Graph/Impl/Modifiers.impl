@@ -6,11 +6,16 @@
     if (!graph || !outIndex)                                                   \
       return STATUS_CONST(INVALID_ARGUMENT);                                  \
     if (graph->vertexCount == graph->vertexCapacity) {                         \
-      size_t newCapacity = graph->vertexCapacity                              \
-                               ? graph->vertexCapacity * 2u                    \
-                               : GRAPH_INITIAL_VERTEX_CAPACITY;                \
-      void *storage = graph->vertices;                                         \
-      OPSTATUS status = ALLOC_FUNC(ReallocArray)(                             \
+      size_t newCapacity;                                                      \
+      void *storage;                                                           \
+      OPSTATUS status;                                                         \
+      if (graph->vertexCapacity > SIZE_MAX / 2u)                              \
+        return STATUS_CONST(ARITHMETIC_OVERFLOW);                             \
+      newCapacity = graph->vertexCapacity                                     \
+                        ? graph->vertexCapacity * 2u                           \
+                        : GRAPH_INITIAL_VERTEX_CAPACITY;                       \
+      storage = graph->vertices;                                               \
+      status = ALLOC_FUNC(ReallocArray)(                                      \
           &storage, newCapacity,                                               \
           sizeof(TGRAPH_VERTEX_TYPE(VERTEX_SUFFIX, WEIGHT_SUFFIX)));          \
       if (status != STATUS_CONST(SUCCESS))                                     \
@@ -38,11 +43,16 @@
       return STATUS_CONST(OUT_OF_RANGE);                                      \
     vertex = &graph->vertices[source];                                         \
     if (vertex->edgeCount == vertex->edgeCapacity) {                           \
-      size_t newCapacity = vertex->edgeCapacity                               \
-                               ? vertex->edgeCapacity * 2u                     \
-                               : GRAPH_INITIAL_EDGE_CAPACITY;                  \
-      void *storage = vertex->edges;                                           \
-      OPSTATUS status = ALLOC_FUNC(ReallocArray)(                             \
+      size_t newCapacity;                                                      \
+      void *storage;                                                           \
+      OPSTATUS status;                                                         \
+      if (vertex->edgeCapacity > SIZE_MAX / 2u)                               \
+        return STATUS_CONST(ARITHMETIC_OVERFLOW);                             \
+      newCapacity = vertex->edgeCapacity                                      \
+                        ? vertex->edgeCapacity * 2u                            \
+                        : GRAPH_INITIAL_EDGE_CAPACITY;                         \
+      storage = vertex->edges;                                                 \
+      status = ALLOC_FUNC(ReallocArray)(                                      \
           &storage, newCapacity,                                               \
           sizeof(TGRAPH_EDGE_TYPE(VERTEX_SUFFIX, WEIGHT_SUFFIX)));            \
       if (status != STATUS_CONST(SUCCESS))                                     \
