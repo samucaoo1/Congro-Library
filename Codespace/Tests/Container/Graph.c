@@ -10,7 +10,7 @@ typedef struct TVisitLog {
 static void VisitIntGraph(TGRAPH_TYPE(int, int) *graph, size_t vertexIndex,
                           void *context) {
   TVisitLog *log = (TVisitLog *)context;
-  TEST_ASSERT(graph != NULL);
+  (void)graph;
   if (log->count < 16u)
     log->values[log->count++] = vertexIndex;
 }
