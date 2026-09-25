@@ -1,15 +1,50 @@
-# Congro;Library 
-[Changelog](Version.md)&nbsp;|&nbsp;[Entropy](ENTROPY.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)  
+# Congro;Library
+
+**Congro;Library is a modular C11 library for portable systems programming, education,
+experimentation, and reusable low-level components.** It follows a header-oriented
+single-header style, emphasizes readable APIs and explicit ownership, and currently
+includes utilities for memory, preprocessing, containers, concurrency, networking,
+chronometry, random generation, mathematics, text/Unicode, bit operations, generic
+types, and reusable structures.
+
+**Keywords:** C11, C library, header-only C, single-header library, systems programming,
+portable C, containers, concurrency, networking, sockets, random number generation,
+Unicode, text processing, mathematics, memory management, metaprogramming, generic C.
+
+[Changelog](Version.md)&nbsp;|&nbsp;[Roadmap](ROADMAP.md)&nbsp;|&nbsp;[Technical Index](docs/INDEX.md)&nbsp;|&nbsp;[Entropy](ENTROPY.md)&nbsp;|&nbsp;[Why EUPL?](LICENSING.md)&nbsp;|&nbsp;[Code of Conduct](CODE_OF_CONDUCT.md)&nbsp;|&nbsp;[Credits](AUTHORS.md)&nbsp;|&nbsp;[Português (Brasil)](Translations/Portugues-Brasil/README(PT-BR).md)&nbsp;|&nbsp;[Español (Latinoamérica)](Translations/Espanol-LATAM/README(ES-LATAM).md)
+
 [![Entropy](.github/badges/entropy.svg)](ENTROPY.md)
 
-<pre>
+## What is Congro?
 
+Congro is an experimental modular C11 library designed around readable source code,
+small composable modules, consistent naming, explicit error handling, and portability.
+It is intended both as a practical library and as code that can be studied.
+
+The current source tree contains:
+
+- **Core:** Algorithm, Cast, Error, Memory, Namespace, and Preprocessor facilities.
+- **Bit:** bit manipulation and low-level integer helpers.
+- **Chronometry:** calendars, clocks, dates, durations, epochs, instants, timers, and time zones.
+- **Concurrency:** atomics, threads, synchronization, coroutines, futures/tasks, and thread pools.
+- **Container:** arrays, strings, vectors, queues, stacks, linked structures, trees, and related generic containers.
+- **Math:** arithmetic, ranges/clamps, values, and equation helpers.
+- **Network:** addresses, sockets, connections, listeners, datagrams, polling, and name resolution.
+- **Random:** entropy sources, engines, distributions, mixers, and shuffle utilities.
+- **Struct:** typed pair/tuple-like structures such as TDual, TPair, TTriple, TQuad, and TPenta.
+- **Text:** UTF-8/UTF-16 encoding, Unicode code points/width, and text grids.
+- **Type:** fundamental typed operations and extended numeric/value types.
+
+For a compact machine- and human-readable map of the repository, see
+[docs/INDEX.md](docs/INDEX.md). Future domains are tracked in [ROADMAP.md](ROADMAP.md).
+
+<pre>
 A library for curious minds exploring beyond the expected path.
 
 $ congro --about
 
 Congro;Library
-A modular and flexible library for curious minds.
+A modular and flexible C11 library for curious minds.
 
 Designed to be:
     [✓] Educational
@@ -34,7 +69,6 @@ Congro is designed around a simple idea:
     educational design
         =
     software worth understanding
-
 
 Whether you're experimenting, learning, prototyping, or building something serious,
 Congro aims to keep the internals understandable without sacrificing flexibility.
@@ -71,36 +105,15 @@ that include libc headers before Congro.
 > Installation
 $ git clone https://github.com/samucaoo1/Congro-Library.git
 
-
-Or, when published:
-
-$ brew install congro
-
-$ yay(or paru) -S congro
-
-> Quick Test
-
-Congro_Experiment();
-
-Output:
-
-[Congro] Initializing experiment...
-[Congro] Loading modules...
-[Congro] Running...
-[Congro] Done.
-
 > Architecture
 
-Congro is built around independent modules that can be combined according to the needs 
+Congro is built around independent modules that can be combined according to the needs
 of your project.
 
-congro/
+Codespace/Congro/
 │
 ├── Core/          # Fundamental components
-├── Modules/       # Modular functionality
-├── Assets/        # Assets
-└── ...
-
+└── Modules/       # Modular functionality
 
 The goal is to make each part of the library understandable on its own.
 
@@ -133,20 +146,12 @@ $ congro --status
 
 Project status: EXPERIMENTAL
 
-API:        ██░░░░░░░░ 20%
-Stability:  █████░░░░░ 50%
-Docs:       ░░░░░░░░░░ 0%
-Curiosity:  ██████████ 100%
-
-
 ⚠️ Congro is currently under active development. APIs may change.
 
 > Contributing
 
 Got an experiment?
-
 Got a weird idea?
-
 Found something that could be clearer?
 
 $ git clone <repository>
@@ -155,18 +160,16 @@ $ make your-changes
 $ git commit -m "feat: my contribution"
 $ git push
 
-
 Contributions, experiments, improvements, and constructive criticism are welcome.
 
-By participating in the project, you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+By participating in the project, you agree to follow the Code of Conduct.
 
 > Credits
-Congro;Library was created by [Samuel (okarin)](https://github.com/samucaoo1). See [AUTHORS.md](AUTHORS.md) for project authorship and contributor credits.
+Congro;Library was created by Samuel (okarin).
 
 > License
-Congro;Library is licensed under the European Union Public Licence, Version 1.2 only (EUPL-1.2).
-
-See [Why EUPL?](LICENSING.md) for the project's licensing rationale.
+Congro;Library is licensed under the European Union Public Licence, Version 1.2 only
+(EUPL-1.2).
 
 > Final Message
 $ congro --message
@@ -179,6 +182,5 @@ $ congro --message
 │                                            │
 └────────────────────────────────────────────┘
 
-
 Congro;Library — A library for curious minds exploring beyond the expected path.
-<pre>
+</pre>
