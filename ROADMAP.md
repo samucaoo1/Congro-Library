@@ -1,7 +1,8 @@
 # Congro Roadmap
 
 This roadmap tracks capabilities that appeared across earlier Congro/Teko generations
-and are still absent from the current Congro-Library architecture.
+and are still absent from the current Congro-Library architecture, together with
+new architectural goals that fit the current direction of the project.
 
 The goal is not to restore old code mechanically. Each capability must be reconsidered
 under the current Congro Pattern, C11 baseline, ownership rules, error model, namespace
@@ -19,16 +20,7 @@ system, single-header architecture, portability requirements, and zero-link goal
 Issue: [#7 — File, Filesystem and Attributed Text](https://github.com/samucaoo1/Congro-Library/issues/7)
 
 - [ ] File / Filesystem
-  - [ ] Path
-  - [ ] File lifecycle
-  - [ ] Binary I/O
-  - [ ] Text I/O
-  - [ ] Directory and filesystem operations
 - [ ] Attributed Text
-  - [ ] Attributed string representation
-  - [ ] Spans/ranges
-  - [ ] Per-span style/attributes
-  - [ ] Text Grid / TUI integration
 
 ### 2. Input
 
@@ -36,10 +28,10 @@ Issue: [#8 — Keyboard, Mouse and Events](https://github.com/samucaoo1/Congro-L
 
 - [ ] Keyboard
 - [ ] Mouse
-- [ ] Event representation
+- [ ] Events
 - [ ] Portable key/button vocabulary
 - [ ] Terminal input backends
-- [ ] Evaluate Gamepad / Controller as a later extension
+- [ ] Evaluate Gamepad / Controller
 
 ### 3. Terminal Foundation
 
@@ -50,10 +42,7 @@ Issue: [#9 — Screen, Buffer, Cursor and Output](https://github.com/samucaoo1/C
 - [ ] Buffer
 - [ ] Cursor
 - [ ] Output
-- [ ] Terminal dimensions
-- [ ] Alternate screen
-- [ ] Text Grid rendering
-- [ ] Style/capability translation
+- [ ] Capabilities
 - [ ] ANSI/POSIX backend
 - [ ] Windows Console / VT backend
 
@@ -66,18 +55,7 @@ Issue: [#10 — Components, Layout, Events and Widgets](https://github.com/samuc
 - [ ] Layout
 - [ ] Focus
 - [ ] Component
-- [ ] Button
-- [ ] CheckBox
-- [ ] RadioButton
-- [ ] ComboBox
-- [ ] Edit
-- [ ] Memo
-- [ ] Menu
-- [ ] ProgressBar
-- [ ] SpinEdit
-- [ ] Dialog
-- [ ] Grid
-- [ ] ASCII Image component
+- [ ] Widget set
 - [ ] SpeakBox / dialogue box
 - [ ] Overlay / HUD primitives
 
@@ -86,18 +64,7 @@ Issue: [#10 — Components, Layout, Events and Widgets](https://github.com/samuc
 Issue: [#11 — Geometry, Transform, Canvas and Raster](https://github.com/samucaoo1/Congro-Library/issues/11)
 
 - [ ] Geometry
-  - [ ] Point
-  - [ ] Line
-  - [ ] Rectangle
-  - [ ] Circle
-  - [ ] Ellipse
-  - [ ] Triangle
-  - [ ] Polygon
 - [ ] Transform
-  - [ ] Translation
-  - [ ] Scale
-  - [ ] Rotation
-  - [ ] Composition
 - [ ] Canvas
 - [ ] Raster
 - [ ] Scanline fill
@@ -106,7 +73,20 @@ Issue: [#11 — Geometry, Transform, Canvas and Raster](https://github.com/samuc
 - [ ] Gradients
 - [ ] Text Grid rendering target
 
-### 6. Immediate GUI
+### 6. Raycast
+
+Issue: [#16 — 2D/3D Ray Queries and Intersection](https://github.com/samucaoo1/Congro-Library/issues/16)
+
+- [ ] Ray2D / Ray3D
+- [ ] Hit/intersection representation
+- [ ] Primitive intersection tests
+- [ ] Closest / first / any / all hit queries
+- [ ] Maximum-distance queries
+- [ ] Optional masks/layers
+- [ ] Integration with Graphics / Geometry / Transform
+- [ ] Immediate GUI picking support
+
+### 7. Immediate GUI
 
 Issue: [#15 — Backend-Agnostic Immediate-Mode UI](https://github.com/samucaoo1/Congro-Library/issues/15)
 
@@ -119,103 +99,230 @@ but implemented in Congro's own API, naming, memory and module conventions.
 - [ ] Renderer-independent draw-command output
 - [ ] Styling / skinning
 - [ ] Windows / panels
-- [ ] Fixed and dynamic layouts
-- [ ] Labels and text
-- [ ] Buttons
-- [ ] CheckBox / Radio / Option
-- [ ] Slider / Progress
+- [ ] Layout
+- [ ] Widget set
 - [ ] Text editing
-- [ ] ComboBox / Menu
-- [ ] Tree / collapsible sections
-- [ ] Tooltip
-- [ ] Image
+- [ ] Images
 - [ ] Custom widget hook
 - [ ] Software raster backend through Graphics
 - [ ] Optional vertex-buffer output
 - [ ] OpenGL example/backend
 - [ ] Keep OS/window ownership outside the GUI core
 
-The GUI and TUI are separate frontends. They may share lower-level types or concepts
-where the abstraction is genuinely common, but neither should be implemented as a
-special case of the other.
+The GUI and TUI are separate frontends.
 
-### 7. Text Art
+### 8. Parsing
+
+Issue: [#21 — Lexer, Tokens and Parser Helpers](https://github.com/samucaoo1/Congro-Library/issues/21)
+
+- [ ] Source cursor
+- [ ] Tokens and spans
+- [ ] Line/column tracking
+- [ ] Scanner helpers
+- [ ] Token stream
+- [ ] Expect / accept helpers
+- [ ] Parse error location
+- [ ] Reusable recursive-descent helpers
+
+### 9. Serialization
+
+Issue: [#17 — Data Formats and Structured I/O](https://github.com/samucaoo1/Congro-Library/issues/17)
+
+- [ ] JSON
+- [ ] CSV
+- [ ] INI
+- [ ] Evaluate TOML
+- [ ] Base64
+- [ ] Hex encoding
+- [ ] Structured value representation where justified
+- [ ] Pretty / compact serialization
+- [ ] Error location reporting
+
+### 10. CLI
+
+Issue: [#18 — Arguments, Options and Subcommands](https://github.com/samucaoo1/Congro-Library/issues/18)
+
+- [ ] Positional arguments
+- [ ] Short/long options
+- [ ] Flags
+- [ ] Option values
+- [ ] Repeated options
+- [ ] Subcommands
+- [ ] Help / usage generation
+- [ ] Validation
+
+### 11. Process and System
+
+Issue: [#19 — Environment and Child Processes](https://github.com/samucaoo1/Congro-Library/issues/19)
+
+- [ ] Environment variables
+- [ ] Current working directory
+- [ ] Hostname
+- [ ] CPU count
+- [ ] Process ID
+- [ ] Executable path
+- [ ] Spawn
+- [ ] Wait
+- [ ] Exit status
+- [ ] Termination
+- [ ] Standard stream redirection
+- [ ] Pipes
+
+### 12. Event Loop
+
+Issue: [#20 — Reactor and Unified Event Dispatch](https://github.com/samucaoo1/Congro-Library/issues/20)
+
+- [ ] Loop lifecycle
+- [ ] Register/unregister source
+- [ ] Callback dispatch
+- [ ] Timers
+- [ ] Socket readiness
+- [ ] Wakeup mechanism
+- [ ] Stop / drain semantics
+- [ ] User-posted events/tasks
+- [ ] Input / Terminal integration
+- [ ] Optional Concurrency integration
+
+### 13. Checksum and Digest
+
+Issue: [#22 — Non-Cryptographic Integrity Algorithms](https://github.com/samucaoo1/Congro-Library/issues/22)
+
+- [ ] CRC32
+- [ ] Adler-32
+- [ ] FNV-1 / FNV-1a
+- [ ] Evaluate additional fast non-cryptographic hashes
+- [ ] Incremental API
+- [ ] One-shot API
+- [ ] File/buffer helpers
+
+### 14. UUID and Identifier
+
+Issue: [#23 — Portable Identifier Utilities](https://github.com/samucaoo1/Congro-Library/issues/23)
+
+- [ ] UUID type
+- [ ] Parse / format
+- [ ] Equality / comparison
+- [ ] UUID v4
+- [ ] UUID v7
+- [ ] Nil UUID
+- [ ] Compact identifier helpers
+
+### 15. Compression and Archive
+
+Issue: [#24 — Containers and Compression Formats](https://github.com/samucaoo1/Congro-Library/issues/24)
+
+- [ ] TAR reader/writer
+- [ ] Archive entry metadata
+- [ ] Streaming extraction/creation
+- [ ] Evaluate Deflate
+- [ ] Evaluate ZIP
+- [ ] Incremental compression/decompression
+- [ ] Buffer/file helpers
+
+### 16. Logging
+
+Issue: [#25 — Structured Diagnostics and Sinks](https://github.com/samucaoo1/Congro-Library/issues/25)
+
+- [ ] Log levels
+- [ ] Logger/context
+- [ ] Message formatting
+- [ ] Timestamp integration
+- [ ] Console/File/User sinks
+- [ ] Multiple sinks
+- [ ] Compile-time filtering
+- [ ] Runtime filtering
+- [ ] Optional thread safety
+
+Logging remains separate from OPSTATUS/Error semantics.
+
+### 17. Testing
+
+Issue: [#26 — Congro Test Utilities](https://github.com/samucaoo1/Congro-Library/issues/26)
+
+- [ ] Assertion helpers
+- [ ] Equality/status helpers
+- [ ] Test runner
+- [ ] Setup/teardown
+- [ ] Expected failure helpers
+- [ ] Reporting
+- [ ] Optional timing
+- [ ] Optional property-style helpers later
+
+### 18. Text Art
 
 Issue: [#12 — FIGlet and ASCII Image](https://github.com/samucaoo1/Congro-Library/issues/12)
 
 - [ ] FIGlet font representation
 - [ ] FIGlet parser
 - [ ] FIGlet rendering
-- [ ] Optional bundled/default font
 - [ ] ASCII image conversion
 - [ ] Luminance ramp
 - [ ] Configurable palette
 - [ ] Styled Text Grid output
 
-### 8. Audio
+### 19. Audio
 
 Issue: [#13 — Synth, Music, MIDI and Output](https://github.com/samucaoo1/Congro-Library/issues/13)
 
 - [ ] Audio core
-  - [ ] Sample
-  - [ ] Buffer
-  - [ ] Format
-  - [ ] Channels
-  - [ ] Sample rate
 - [ ] Wave generation
 - [ ] Synth
 - [ ] Music
 - [ ] MIDI
 - [ ] Output backends
-  - [ ] Windows
-  - [ ] Linux
-  - [ ] macOS
 - [ ] Investigate a zero-link output strategy
 
-### 9. Compatibility Archaeology
+### 20. Compatibility Archaeology
 
 Issue: [#14 — Debug and Native Interop](https://github.com/samucaoo1/Congro-Library/issues/14)
 
-- [ ] Audit old Debug facilities against Panic / Stacktrace / Status
-- [ ] Assertions
-- [ ] Diagnostic helpers
-- [ ] Debug-only helpers
+- [ ] Audit old Debug facilities
+- [ ] Assertions / diagnostics gaps
 - [ ] Object/container dump helpers
 - [ ] Audit old native converters
-- [ ] Decide which concepts belong in portable Congro types
-- [ ] Keep backend-only concepts below the public API
-- [ ] Add explicit Native escape hatches only where useful
+- [ ] Portable type replacements
+- [ ] Backend-only native concepts
+- [ ] Explicit Native escape hatches where useful
 
 ## Dependency direction
 
 The intended dependency direction is approximately:
 
 ```text
-File / Filesystem
-       |
-       +----------------------+
-       |                      |
-       v                      v
-Attributed Text           Text Art assets
-       |
-       v
-    Text Grid
-       |
-       v
-    Terminal <----------- Input
-       |                   |
-       v                   |
-      TUI                  |
-                           v
+                         File / Filesystem
+                           /      |      \
+                          v       v       v
+                     Parsing  Logging  Archive/Compression
+                        |
+                        v
+                  Serialization
+
+Input ----------------------+
+  |                         |
+  v                         v
+Terminal                Event Loop <------ Chronometry / Network
+  |                         |
+  v                         |
+ TUI                        |
+                            v
 Graphics <------------ Immediate GUI
-   |
-   +------------------> Text Art
+  |  \                    /
+  |   \                  /
+  |    v                /
+  |  Raycast <---------+
+  |
+  +------------------> Text Art
+
+Random + Chronometry ------> UUID / Identifier
+
+File / Network -----------> Checksum / Digest
+
+Process / System ---------> CLI and Event Loop integration
+
+Testing supports every domain but is not a runtime dependency.
 
 Audio remains mostly independent from this chain.
 ```
-
-The Immediate GUI depends conceptually on Graphics and Input, while keeping OS/window
-creation and concrete rendering backends outside the GUI core.
 
 This ordering is architectural guidance, not a promise that every item must be
 implemented strictly in sequence.
