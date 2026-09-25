@@ -106,7 +106,40 @@ Issue: [#11 — Geometry, Transform, Canvas and Raster](https://github.com/samuc
 - [ ] Gradients
 - [ ] Text Grid rendering target
 
-### 6. Text Art
+### 6. Immediate GUI
+
+Issue: [#15 — Backend-Agnostic Immediate-Mode UI](https://github.com/samucaoo1/Congro-Library/issues/15)
+
+A graphical immediate-mode UI layer inspired by the architectural role of Nuklear,
+but implemented in Congro's own API, naming, memory and module conventions.
+
+- [ ] Immediate-mode GUI context and frame lifecycle
+- [ ] Minimal persistent state
+- [ ] Explicit Input integration
+- [ ] Renderer-independent draw-command output
+- [ ] Styling / skinning
+- [ ] Windows / panels
+- [ ] Fixed and dynamic layouts
+- [ ] Labels and text
+- [ ] Buttons
+- [ ] CheckBox / Radio / Option
+- [ ] Slider / Progress
+- [ ] Text editing
+- [ ] ComboBox / Menu
+- [ ] Tree / collapsible sections
+- [ ] Tooltip
+- [ ] Image
+- [ ] Custom widget hook
+- [ ] Software raster backend through Graphics
+- [ ] Optional vertex-buffer output
+- [ ] OpenGL example/backend
+- [ ] Keep OS/window ownership outside the GUI core
+
+The GUI and TUI are separate frontends. They may share lower-level types or concepts
+where the abstraction is genuinely common, but neither should be implemented as a
+special case of the other.
+
+### 7. Text Art
 
 Issue: [#12 — FIGlet and ASCII Image](https://github.com/samucaoo1/Congro-Library/issues/12)
 
@@ -119,7 +152,7 @@ Issue: [#12 — FIGlet and ASCII Image](https://github.com/samucaoo1/Congro-Libr
 - [ ] Configurable palette
 - [ ] Styled Text Grid output
 
-### 7. Audio
+### 8. Audio
 
 Issue: [#13 — Synth, Music, MIDI and Output](https://github.com/samucaoo1/Congro-Library/issues/13)
 
@@ -139,7 +172,7 @@ Issue: [#13 — Synth, Music, MIDI and Output](https://github.com/samucaoo1/Cong
   - [ ] macOS
 - [ ] Investigate a zero-link output strategy
 
-### 8. Compatibility Archaeology
+### 9. Compatibility Archaeology
 
 Issue: [#14 — Debug and Native Interop](https://github.com/samucaoo1/Congro-Library/issues/14)
 
@@ -160,24 +193,29 @@ The intended dependency direction is approximately:
 ```text
 File / Filesystem
        |
-       +---------------------+
-       |                     |
-       v                     v
-Attributed Text          Text Art assets
+       +----------------------+
+       |                      |
+       v                      v
+Attributed Text           Text Art assets
        |
        v
     Text Grid
        |
        v
-    Terminal <---------- Input
-       |
-       v
-      TUI
-       |
-       +----------> Graphics / Text Art
+    Terminal <----------- Input
+       |                   |
+       v                   |
+      TUI                  |
+                           v
+Graphics <------------ Immediate GUI
+   |
+   +------------------> Text Art
 
 Audio remains mostly independent from this chain.
 ```
+
+The Immediate GUI depends conceptually on Graphics and Input, while keeping OS/window
+creation and concrete rendering backends outside the GUI core.
 
 This ordering is architectural guidance, not a promise that every item must be
 implemented strictly in sequence.
