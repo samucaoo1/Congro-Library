@@ -1,149 +1,116 @@
-# Congro;Library Technical Index
+# Congro;Library Documentation
 
-Congro;Library is a modular C11 library with a header-oriented, single-header-style
-architecture. This index exists to make the repository easier to navigate for humans,
-search engines, documentation systems, and code-reading agents.
+This directory is the human-readable API reference for Congro;Library.
 
-## Canonical repository
+The reference follows the actual public headers in `Codespace/Congro`. Every
+module page explains the API, gives usage examples, and shows both Congro's
+semantic namespace-macro spelling and the ordinary C identifier produced by the
+default namespace.
 
-- Repository: https://github.com/samucaoo1/Congro-Library
-- Language baseline: C11
-- License: EUPL-1.2-only
-- Status: experimental / active development
+Start with **[Calling conventions](CALLING_CONVENTIONS.md)** if you are new to
+forms such as:
+
+```c
+BIT_FUNC(32, Popcount)(flags);
+Bit_32_Popcount(flags);
+```
+
+They are two spellings of the same function, not two implementations.
+
+## API reference
+
+| Area | Documentation | Contents |
+| --- | --- | --- |
+| Core | [Core](Core.md) | Namespace, OPSTATUS, comparison, memory, arenas, casting, panic, preprocessor utilities |
+| Bit | [Bit](Bit.md) | Single bits, masks, popcount, bit indices, rotations, bit fields |
+| Math | [Math](Math.md) | Checked arithmetic, clamp/saturation, range/value helpers, equations |
+| Chronometry | [Chronometry](Chronometry.md) | Calendars, dates, durations, clocks, epochs, formatting, timers, timezones |
+| Concurrency | [Concurrency](Concurrency.md) | Atomics, threads, sleep, synchronization, coroutines, tasks, futures, thread pools |
+| Container | [Container](Container.md) | Vectors, strings, queues, stacks, linked structures, trees, hash maps, graphs |
+| Network | [Network](Network.md) | Addresses, sockets, connections, listeners, datagrams, polling, resolution |
+| Random | [Random](Random.md) | Entropy, deterministic engines, mixers, sources, distributions, shuffle |
+| Struct | [Struct](Struct.md) | TPair, TDual, TTriple, TQuad, TPenta and conversions |
+| Text | [Text](Text.md) | Unicode, UTF-8, UTF-16, display width, char/attribute/full grids |
+| Type | [Type](Type.md) | Fundamental aliases, TBlock, TBigint, TDecimal |
+
+## Source map
+
+Congro is a modular C11 library with a header-oriented, single-header-style
+architecture.
+
 - Source root: `Codespace/Congro`
 - Tests root: `Codespace/Tests`
+- Public `.h` files define the API.
+- `.impl` files are implementation pages included by public headers; users do
+  not compile them as separate translation units.
+- `.space` files define namespace/package configuration and shared declarations.
+- Operational failures generally use `OPSTATUS`.
+- Selected Container and Type APIs optionally provide pseudo-method/vtable
+  ergonomics in addition to direct functions.
+- Native backend details are kept behind portable APIs where practical.
+- The project follows a zero-link philosophy: avoid mandatory user linker flags
+  where viable.
 
-## Design characteristics
+## Module map
 
-- Modular C library
-- Header-oriented architecture
-- `.impl` files are implementation pages included by public headers
-- `.space` files define namespace/package-level configuration and common declarations
-- Explicit ownership and error handling
-- `OPSTATUS` for operational failures
-- Optional pseudo-method/vtable ergonomics in selected modules
-- Portable API surfaces with native backend details kept internal where practical
-- Zero-link philosophy: avoid mandatory user linker flags where viable
+```text
+Codespace/Congro/
+├── Core/
+│   ├── Algorithm/
+│   ├── Cast/
+│   ├── Error/
+│   ├── Memory/
+│   ├── Namespace.h
+│   └── Preprocessor/
+└── Modules/
+    ├── Bit/
+    ├── Chronometry/
+    ├── Concurrency/
+    ├── Container/
+    │   ├── Array/
+    │   ├── Linked/
+    │   ├── Tree/
+    │   ├── Hash/
+    │   └── Graph/
+    ├── Math/
+    ├── Network/
+    ├── Random/
+    ├── Struct/
+    ├── Text/
+    └── Type/
+```
 
-## Core
+Hash and Graph are part of the current main source tree and are documented under
+[Container](Container.md).
 
-### Algorithm
-Comparison and low-level reusable algorithms.
+## Build contract
 
-Path: `Codespace/Congro/Core/Algorithm`
+Congro targets C11. On POSIX targets, native backends use interfaces gated by
+POSIX feature-test macros. With strict C11 builds, define:
 
-### Cast
-Explicit conversion helpers.
+```text
+-D_POSIX_C_SOURCE=200809L
+```
 
-Path: `Codespace/Congro/Core/Cast`
+on the compiler command line so it is present before the first system header.
 
-### Error
-Status codes, panic facilities, and stack traces.
+## Project documents
 
-Path: `Codespace/Congro/Core/Error`
-
-### Memory
-Allocation, arena, memory operations, and memory utilities.
-
-Path: `Codespace/Congro/Core/Memory`
-
-### Namespace
-Namespace and symbol-prefix composition.
-
-Path: `Codespace/Congro/Core/Namespace.h`
-
-### Preprocessor
-Macro metaprogramming, argument counting, boolean logic, compiler/OS/processor
-detection, foreach/map/repeat/sequence helpers, token operations, and evaluation.
-
-Path: `Codespace/Congro/Core/Preprocessor`
-
-## Modules
-
-### Bit
-Bit manipulation and integer bit utilities.
-
-Path: `Codespace/Congro/Modules/Bit`
-
-### Chronometry
-Time-related abstractions including calendars, clocks, dates, durations, epochs,
-instants, timers, formatting, and time zones.
-
-Path: `Codespace/Congro/Modules/Chronometry`
-
-### Concurrency
-Atomics, threads, sleep, synchronization primitives, coroutines, barriers,
-conditions, mutexes, once initialization, reader/writer locks, semaphores,
-tasks, futures, and thread pools.
-
-Path: `Codespace/Congro/Modules/Concurrency`
-
-### Container
-Generic container structures including vectors, strings, queues, stacks,
-linked structures, and trees. Hash and Graph development is tracked separately
-until merged into the main branch.
-
-Path: `Codespace/Congro/Modules/Container`
-
-### Math
-Arithmetic helpers, clamps/ranges, min/max and equation utilities.
-
-Path: `Codespace/Congro/Modules/Math`
-
-### Network
-Portable networking abstractions for addresses, sockets, connections,
-listeners, datagrams, polling, runtime setup, errors, and name resolution.
-
-Path: `Codespace/Congro/Modules/Network`
-
-### Random
-Entropy sources, deterministic engines, mixers, distributions, seeds,
-random values, and shuffle operations.
-
-Path: `Codespace/Congro/Modules/Random`
-
-### Struct
-Reusable typed structures such as pairs and fixed-size tuple-like groups.
-
-Path: `Codespace/Congro/Modules/Struct`
-
-### Text
-Text encoding and Unicode facilities, including UTF-8, UTF-16, Unicode code
-points/width, character grids, attribute grids, and text-grid types.
-
-Path: `Codespace/Congro/Modules/Text`
-
-### Type
-Fundamental typed operations plus extended numeric/value types.
-
-Path: `Codespace/Congro/Modules/Type`
-
-## Project documentation
-
-- `README.md` — project overview and entry point
-- `ROADMAP.md` — planned domains and architectural direction
-- `Version.md` — changelog/history
-- `ENTROPY.md` — Entropy versioning model
-- `LICENSING.md` — EUPL licensing rationale
+- `README.md` — project overview
+- `ROADMAP.md` — planned domains
+- `Version.md` — change history
+- `ENTROPY.md` — Entropy versioning
+- `PATTERN.md` / repository pattern material — architecture and naming rules
+- `LICENSING.md` — EUPL rationale
 - `SECURITY.md` — vulnerability reporting
 - `CODE_OF_CONDUCT.md` — community conduct
-- `AUTHORS.md` — authorship and contributor credits
-- `PATTERN.md` — coding and architecture conventions
-- `llms.txt` — concise machine-oriented project map
-- `CITATION.cff` — canonical project citation metadata
-
-## Roadmap domains
-
-Planned work includes File/Filesystem, Attributed Text, Input, Terminal, TUI,
-Graphics, Raycast, Immediate GUI, Parsing, Serialization, CLI, Process/System,
-Event Loop, Checksum/Digest, UUID/Identifier, Compression/Archive, Logging,
-Testing utilities, Text Art, Audio, and compatibility/native interop audits.
-
-See `ROADMAP.md` and the linked GitHub issues for scope.
+- `AUTHORS.md` — credits
+- `llms.txt` — compact machine-oriented project map
+- `CITATION.cff` — citation metadata
 
 ## Search terms
 
-Congro Library, Congro C library, C11 library, header-only C, single-header C,
-portable C library, systems programming C, generic containers C, C concurrency,
-C networking library, C sockets, C Unicode, C text grid, C random library,
-C metaprogramming, C memory management, C data structures, educational C library.
+Congro Library, Congro C library, C11 library, header-oriented C, single-header
+style C, portable systems programming C, generic containers C, C concurrency,
+C networking, C sockets, Unicode C, text grid C, random C library, C
+metaprogramming, C memory management, C data structures.
