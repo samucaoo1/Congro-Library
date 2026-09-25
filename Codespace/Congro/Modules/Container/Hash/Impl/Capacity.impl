@@ -8,7 +8,11 @@
     size_t i;                                                                  \
     void *storage = NULL;                                                      \
     OPSTATUS status;                                                           \
+    (void)sizeof(KEY_TYPE);                                                    \
+    (void)sizeof(VALUE_TYPE);                                                  \
     if (!hash || newCapacity == 0)                                             \
+      return STATUS_CONST(INVALID_ARGUMENT);                                  \
+    if (newCapacity < hash->size)                                              \
       return STATUS_CONST(INVALID_ARGUMENT);                                  \
     status = ALLOC_FUNC(AllocArray)(                                           \
         &storage, newCapacity,                                                 \
@@ -41,6 +45,6 @@
         }                                                                      \
       }                                                                        \
     }                                                                          \
-    free(oldBuckets);                                                          \
+    Memory_Free(oldBuckets);                                                   \
     return STATUS_CONST(SUCCESS);                                              \
   }
