@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use Congro;Library in academic or technical work, please cite this repository."
+title: "Congro;Library"
+type: software
+authors:
+  - family-names: "Vinicios"
+    given-names: "Samuel"
+    alias: "okarin"
+repository-code: "https://github.com/samucaoo1/Congro-Library"
+url: "https://github.com/samucaoo1/Congro-Library"
+license: "EUPL-1.2"
+abstract: >-
+  Congro;Library is a modular C11 library for portable systems programming,
+  education, experimentation, and reusable low-level components. It includes
+  facilities for memory, preprocessing, containers, concurrency, networking,
+  chronometry, random generation, mathematics, text and Unicode processing,
+  bit operations, reusable structures, and generic typed operations.
+keywords:
+  - C11
+  - C library
+  - systems programming
+  - portable C
+  - containers
+  - concurrency
+  - networking
+  - Unicode
+  - metaprogramming
+  - educational software
