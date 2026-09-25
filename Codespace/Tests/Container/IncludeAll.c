@@ -10,5 +10,6 @@
 #include "../../Congro/Modules/Container/Tree/BST.h"
 #include "../../Congro/Modules/Container/Tree/AVL.h"
 #include "../../Congro/Modules/Container/Tree/RedBlack.h"
+#include "../../Congro/Modules/Container/Hash/Hash.h"
+#include "../../Congro/Modules/Container/Graph/Graph.h"
 int main(void) { return 0; }
-

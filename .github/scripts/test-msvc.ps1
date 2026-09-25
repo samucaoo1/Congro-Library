@@ -44,6 +44,8 @@ foreach ($pair in @(
   @("linear-extra","LinearExtra.c"),
   @("linear-all-types","LinearAllTypes.c"),
   @("tree-all-functions","TreeAllFunctions.c"),
+  @("hash","Hash.c"),
+  @("graph","Graph.c"),
   @("off","PseudoMethodsOff.c"),
   @("custom-type","CustomType.c"),
   @("include-all","IncludeAll.c"),
