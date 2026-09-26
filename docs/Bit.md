@@ -87,6 +87,7 @@ BIT_FUNC(32, Popcount)(value);
 
 All functions are instantiated for 8-, 16-, 32-, and 64-bit unsigned integer types.
 
+
 ---
 
 # Single-bit operations
